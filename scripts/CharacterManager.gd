@@ -50,8 +50,8 @@ func show_character(character_name: String, position: Position, expression: Stri
 	var character_sprite = Sprite2D.new()
 	character_sprite.name = character_name
 	
-	# プレースホルダー画像を作成（実際の画像がない場合）
-	var texture = create_placeholder_texture(character_name, expression)
+	# 実際の画像ファイルを読み込み
+	var texture = load_character_image(character_name, expression)
 	character_sprite.texture = texture
 	
 	# 位置を設定
@@ -86,13 +86,32 @@ func hide_character(character_name: String):
 func change_expression(character_name: String, expression: String):
 	if character_name in active_characters:
 		var character_sprite = active_characters[character_name]
-		var texture = create_placeholder_texture(character_name, expression)
+		var texture = load_character_image(character_name, expression)
 		character_sprite.texture = texture
 
 # 全キャラクターを非表示
 func hide_all_characters():
 	for character_name in active_characters.keys():
 		hide_character(character_name)
+
+# 実際のキャラクター画像を読み込み
+func load_character_image(character_name: String, expression: String = "normal") -> Texture2D:
+	var image_path = "res://assets/characters/" + character_name + "_" + expression + ".png"
+	
+	# 実際の画像ファイルを読み込み
+	if ResourceLoader.exists(image_path):
+		var texture = load(image_path) as Texture2D
+		if texture:
+			print("Loaded character image: ", image_path)
+			return texture
+		else:
+			print("Failed to load texture: ", image_path)
+	else:
+		print("Image file not found: ", image_path)
+	
+	# フォールバック：プレースホルダー画像を生成
+	print("Using placeholder for: ", character_name, " with expression: ", expression)
+	return create_placeholder_texture(character_name, expression)
 
 # プレースホルダーテクスチャを作成
 func create_placeholder_texture(character_name: String, expression: String) -> ImageTexture:
