@@ -81,7 +81,7 @@ func start_typing(text: String):
 	
 	for i in range(char_count + 1):
 		tween.tween_callback(func(): dialog_text.text = text.substr(0, i))
-		tween.tween_delay(typing_speed / GameManager.instance.settings.text_speed)
+		await get_tree().create_timer(typing_speed / GameManager.instance.settings.text_speed).timeout
 	
 	tween.tween_callback(complete_typing)
 
