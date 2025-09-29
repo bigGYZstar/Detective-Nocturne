@@ -84,9 +84,13 @@ func start_typing(text: String):
 	var tween = create_tween()
 	var char_count = text.length()
 	
-	for i in range(char_count + 1):
-		tween.tween_callback(func(): dialog_text.text = text.substr(0, i))
-		await get_tree().create_timer(typing_speed / GameManager.instance.settings.text_speed).timeout
+        var text_speed = GameManager.instance.settings.get("text_speed", 1.0)
+        if text_speed <= 0:
+                text_speed = 1.0
+
+        for i in range(char_count + 1):
+                tween.tween_callback(func(): dialog_text.text = text.substr(0, i))
+                await get_tree().create_timer(typing_speed / text_speed).timeout
 	
 	tween.tween_callback(complete_typing)
 
@@ -96,8 +100,9 @@ func complete_typing():
 	next_indicator.show()
 	
 	# 自動進行の処理
-	if GameManager.instance.settings.get("auto_mode", false):
-		await get_tree().create_timer(GameManager.instance.settings.auto_speed).timeout
+        if GameManager.instance.settings.get("auto_mode", false):
+                var auto_speed = GameManager.instance.settings.get("auto_speed", 2.0)
+                await get_tree().create_timer(auto_speed).timeout
 		advance_dialog()
 
 # ダイアログを進める

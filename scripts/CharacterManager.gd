@@ -37,8 +37,7 @@ var positions: Dictionary = {
 signal character_animation_finished
 
 func _ready():
-	# キャラクター画像フォルダを作成
-	create_character_folders()
+        pass
 
 # キャラクターを表示
 func show_character(character_name: String, position: Position, expression: String = "normal"):
@@ -236,13 +235,4 @@ func get_line_points(start: Vector2i, end: Vector2i) -> Array:
 			y += sy
 	
 	return points
-
-# キャラクター画像フォルダを作成
-func create_character_folders():
-	var dir = DirAccess.open("res://")
-	if dir:
-		for character in character_paths.keys():
-			var path = character_paths[character]
-			if not dir.dir_exists(path):
-				dir.make_dir_recursive(path)
 
