@@ -245,3 +245,4 @@ func create_character_folders():
 			var path = character_paths[character]
 			if not dir.dir_exists(path):
 				dir.make_dir_recursive(path)
+

@@ -29,6 +29,11 @@ var character_colors: Dictionary = {
 signal dialog_finished
 signal choice_selected(choice_index: int)
 
+# 選択肢が選ばれた際にシグナルを発火させるための仮の関数
+func _on_choice_button_pressed(index: int):
+	choice_selected.emit(index)
+
+
 func _ready():
 	hide()
 	next_indicator.hide()
