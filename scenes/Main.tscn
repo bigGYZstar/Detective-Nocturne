@@ -1,0 +1,142 @@
+[gd_scene load_steps=7 format=3 uid="uid://bxqvxr8qkw2ej"]
+
+[ext_resource type="Script" path="res://scripts/GameManager.gd" id="1_0k8vj"]
+[ext_resource type="Script" path="res://scripts/DialogSystem.gd" id="2_3h4kl"]
+[ext_resource type="Script" path="res://scripts/Main.gd" id="3_main"]
+[ext_resource type="Script" path="res://scripts/CharacterManager.gd" id="4_char"]
+[ext_resource type="Script" path="res://scripts/ScenarioManager.gd" id="5_scenario"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
+bg_color = Color(0, 0, 0, 0.8)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_main")
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("1_0k8vj")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.2, 0.2, 0.3, 1)
+
+[node name="CharacterManager" type="Node2D" parent="."]
+script = ExtResource("4_char")
+
+[node name="ScenarioManager" type="Node" parent="."]
+script = ExtResource("5_scenario")
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="DialogSystem" type="Control" parent="UILayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_3h4kl")
+
+[node name="DialogBox" type="NinePatchRect" parent="UILayer/DialogSystem"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = -250.0
+offset_right = 1870.0
+offset_bottom = -50.0
+grow_vertical = 0
+texture = null
+
+[node name="Background" type="ColorRect" parent="UILayer/DialogSystem/DialogBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="CharacterName" type="Label" parent="UILayer/DialogSystem/DialogBox"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 30.0
+offset_top = -40.0
+offset_right = 200.0
+offset_bottom = -10.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "キャラクター名"
+
+[node name="DialogText" type="RichTextLabel" parent="UILayer/DialogSystem/DialogBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = 20.0
+offset_right = -30.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "ここにダイアログテキストが表示されます。"
+fit_content = true
+
+[node name="NextIndicator" type="Label" parent="UILayer/DialogSystem/DialogBox"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -40.0
+offset_right = -20.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "▼"
+horizontal_alignment = 2
+
+[node name="MenuLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="StartButton" type="Button" parent="MenuLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -25.0
+offset_right = 100.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "ゲーム開始"
+
+[connection signal="pressed" from="MenuLayer/StartButton" to="." method="_on_start_button_pressed"]
