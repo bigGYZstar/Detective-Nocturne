@@ -14,6 +14,8 @@ enum Position {
 
 # 現在表示中のキャラクター
 var active_characters: Dictionary = {}
+# キャラクターごとのアニメーション tween を追跡
+var active_tweens: Dictionary = {}
 
 # キャラクター画像のパス
 var character_paths: Dictionary = {
@@ -37,64 +39,96 @@ var positions: Dictionary = {
 signal character_animation_finished
 
 func _ready():
-	# キャラクター画像フォルダを作成
-	create_character_folders()
+	pass
 
 # キャラクターを表示
 func show_character(character_name: String, position: Position, expression: String = "normal"):
-	# 既存のキャラクターがいる場合は削除
-	if character_name in active_characters:
-		hide_character(character_name)
-	
-	# 新しいキャラクターを作成
-	var character_sprite = Sprite2D.new()
-	character_sprite.name = character_name
-	
-	# 実際の画像ファイルを読み込み
-	var texture = load_character_image(character_name, expression)
-	character_sprite.texture = texture
-	
-	# 位置を設定
-	character_sprite.position = positions[position]
-	character_sprite.scale = Vector2(0.8, 0.8)  # 適度なサイズに調整
-	
-	# シーンに追加
-	add_child(character_sprite)
-	active_characters[character_name] = character_sprite
-	
-	# フェードイン効果
-	character_sprite.modulate.a = 0.0
-	var tween = create_tween()
+	var character_sprite := _get_or_create_character_sprite(character_name)
+	if character_sprite == null:
+		return
+
+	character_sprite.texture = load_character_image(character_name, expression)
+	character_sprite.position = positions.get(position, Vector2.ZERO)
+
+	_kill_active_tween(character_name)
+
+	var tween := create_tween()
+	active_tweens[character_name] = tween
 	tween.tween_property(character_sprite, "modulate:a", 1.0, 0.5)
-	tween.tween_callback(func(): character_animation_finished.emit())
-		await get_tree().create_timer(0.5).timeout # フェードインの完了を待つ
+	tween.finished.connect(_on_show_tween_finished.bind(character_name, character_sprite), Object.CONNECT_ONE_SHOT)
 
 # キャラクターを非表示
 func hide_character(character_name: String):
-	if character_name in active_characters:
-		var character_sprite = active_characters[character_name]
-		
-		# フェードアウト効果
-		var tween = create_tween()
-		tween.tween_property(character_sprite, "modulate:a", 0.0, 0.3)
-		tween.tween_callback(func(): 
-			character_sprite.queue_free()
-			active_characters.erase(character_name)
-			character_animation_finished.emit()
-		)
-		await get_tree().create_timer(0.3).timeout # フェードアウトの完了を待つ
+	var character_sprite := _get_active_character_sprite(character_name)
+	if character_sprite == null:
+		return
+
+	_kill_active_tween(character_name)
+
+	var tween := create_tween()
+	active_tweens[character_name] = tween
+	tween.tween_property(character_sprite, "modulate:a", 0.0, 0.3)
+	tween.finished.connect(_on_hide_tween_finished.bind(character_name, character_sprite), Object.CONNECT_ONE_SHOT)
+
+func _on_show_tween_finished(character_name: String, character_sprite: Sprite2D):
+	active_tweens.erase(character_name)
+	if active_characters.get(character_name) == character_sprite:
+		character_animation_finished.emit()
+
+func _on_hide_tween_finished(character_name: String, character_sprite: Sprite2D):
+	active_tweens.erase(character_name)
+	if not is_instance_valid(character_sprite):
+		return
+	character_sprite.queue_free()
+	if active_characters.get(character_name) == character_sprite:
+		active_characters.erase(character_name)
+		character_animation_finished.emit()
 
 # 表情を変更
 func change_expression(character_name: String, expression: String):
-	if character_name in active_characters:
-		var character_sprite = active_characters[character_name]
-		var texture = load_character_image(character_name, expression)
+	var character_sprite := _get_active_character_sprite(character_name)
+	if character_sprite == null:
+		return
+	var texture = load_character_image(character_name, expression)
+	if texture != null:
 		character_sprite.texture = texture
 
 # 全キャラクターを非表示
 func hide_all_characters():
 	for character_name in active_characters.keys():
 		hide_character(character_name)
+
+func _get_active_character_sprite(character_name: String) -> Sprite2D:
+	if not active_characters.has(character_name):
+		return null
+	var character_sprite: Sprite2D = active_characters[character_name]
+	if character_sprite == null or not is_instance_valid(character_sprite):
+		active_characters.erase(character_name)
+		return null
+	return character_sprite
+
+func _get_or_create_character_sprite(character_name: String) -> Sprite2D:
+	var character_sprite := _get_active_character_sprite(character_name)
+	if character_sprite != null:
+		return character_sprite
+
+	character_sprite = Sprite2D.new()
+	character_sprite.name = character_name
+	character_sprite.position = Vector2.ZERO
+	character_sprite.scale = Vector2(0.8, 0.8)
+	character_sprite.modulate.a = 0.0
+
+	add_child(character_sprite)
+	active_characters[character_name] = character_sprite
+	return character_sprite
+
+func _kill_active_tween(character_name: String):
+	if not active_tweens.has(character_name):
+		return
+	var tween: SceneTreeTween = active_tweens[character_name]
+	if tween != null and is_instance_valid(tween):
+		tween.kill()
+	active_tweens.erase(character_name)
 
 # 実際のキャラクター画像を読み込み
 func load_character_image(character_name: String, expression: String = "normal") -> Texture2D:
@@ -236,13 +270,4 @@ func get_line_points(start: Vector2i, end: Vector2i) -> Array:
 			y += sy
 	
 	return points
-
-# キャラクター画像フォルダを作成
-func create_character_folders():
-	var dir = DirAccess.open("res://")
-	if dir:
-		for character in character_paths.keys():
-			var path = character_paths[character]
-			if not dir.dir_exists(path):
-				dir.make_dir_recursive(path)
 
