@@ -28,50 +28,51 @@ func start_game():
 	scenario_manager.start_scenario("prologue")
 
 func _on_scenario_command(command: Dictionary):
-	match command.type:
-		"dialog":
-			# ダイアログを表示
-			var dialog_data = [{
-				"speaker": command.speaker,
-				"text": command.text
-			}]
-			dialog_system.start_dialog(dialog_data)
-		
-		"narration":
-			# ナレーションを表示
-			var dialog_data = [{
-				"speaker": "ナレーション",
-				"text": command.text
-			}]
-			dialog_system.start_dialog(dialog_data)
-		
-		"show_character":
-			# キャラクターを表示
-			var position = get_character_position(command.position)
-			character_manager.show_character(
-				command.character, 
-				position, 
-				command.get("expression", "normal")
-			)
-			# 次のコマンドを実行
-			scenario_manager.advance_scenario()
-		
-		"change_expression":
-			# 表情を変更
-			character_manager.change_expression(
-				command.character, 
-				command.expression
-			)
-			# 次のコマンドを実行
-			scenario_manager.advance_scenario()
-		
-		"hide_character":
-			# キャラクターを非表示
-			character_manager.hide_character(command.character)
-			# 次のコマンドを実行
-			scenario_manager.advance_scenario()
-		
-		"hide_all_characters":
+        var command_type = command.get("type", "")
+        match command_type:
+                "dialog":
+                        # ダイアログを表示
+                        var dialog_data = [{
+                                "speaker": command.get("speaker", ""),
+                                "text": command.get("text", "")
+                        }]
+                        dialog_system.start_dialog(dialog_data)
+
+                "narration":
+                        # ナレーションを表示
+                        var dialog_data = [{
+                                "speaker": "ナレーション",
+                                "text": command.get("text", "")
+                        }]
+                        dialog_system.start_dialog(dialog_data)
+
+                "show_character":
+                        # キャラクターを表示
+                        var position = get_character_position(command.get("position", ""))
+                        character_manager.show_character(
+                                command.get("character", ""),
+                                position,
+                                command.get("expression", "normal")
+                        )
+                        # 次のコマンドを実行
+                        scenario_manager.advance_scenario()
+
+                "change_expression":
+                        # 表情を変更
+                        character_manager.change_expression(
+                                command.get("character", ""),
+                                command.get("expression", "normal")
+                        )
+                        # 次のコマンドを実行
+                        scenario_manager.advance_scenario()
+
+                "hide_character":
+                        # キャラクターを非表示
+                        character_manager.hide_character(command.get("character", ""))
+                        # 次のコマンドを実行
+                        scenario_manager.advance_scenario()
+
+                "hide_all_characters":
 			# 全キャラクターを非表示
 			character_manager.hide_all_characters()
 			# 次のコマンドを実行

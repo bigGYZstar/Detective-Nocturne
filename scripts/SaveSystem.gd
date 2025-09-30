@@ -122,7 +122,7 @@ func delete_save(slot: int) -> bool:
 # 全セーブスロットの情報を取得
 func get_all_save_info() -> Array:
 	var save_info_list = []
-	
+
 	for i in range(MAX_SAVE_SLOTS):
 		var info = get_save_info(i)
 		if info.is_empty():
@@ -135,19 +135,20 @@ func get_all_save_info() -> Array:
 				"formatted_time": "空きスロット"
 			})
 		else:
-			var datetime = Time.get_datetime_dict_from_unix_time(info.timestamp)
+			var timestamp = info.get("timestamp", 0)
+			var datetime = Time.get_datetime_dict_from_unix_time(timestamp)
 			var formatted_time = "%04d/%02d/%02d %02d:%02d" % [
-				datetime.year, datetime.month, datetime.day,
-				datetime.hour, datetime.minute
+				datetime.get("year", 0), datetime.get("month", 0), datetime.get("day", 0),
+				datetime.get("hour", 0), datetime.get("minute", 0)
 			]
-			
+
 			save_info_list.append({
 				"slot": i,
 				"exists": true,
-				"chapter": info.chapter,
-				"scene": info.scene,
-				"timestamp": info.timestamp,
+				"chapter": info.get("chapter", 0),
+				"scene": info.get("scene", 0),
+				"timestamp": timestamp,
 				"formatted_time": formatted_time
 			})
-	
+
 	return save_info_list
