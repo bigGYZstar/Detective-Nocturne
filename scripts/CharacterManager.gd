@@ -37,52 +37,46 @@ var positions: Dictionary = {
 signal character_animation_finished
 
 func _ready():
-	# キャラクター画像フォルダを作成
-	create_character_folders()
+        pass
 
 # キャラクターを表示
 func show_character(character_name: String, position: Position, expression: String = "normal"):
-	# 既存のキャラクターがいる場合は削除
-	if character_name in active_characters:
-		hide_character(character_name)
-	
-	# 新しいキャラクターを作成
-	var character_sprite = Sprite2D.new()
-	character_sprite.name = character_name
-	
-	# 実際の画像ファイルを読み込み
-	var texture = load_character_image(character_name, expression)
-	character_sprite.texture = texture
-	
-	# 位置を設定
-	character_sprite.position = positions[position]
-	character_sprite.scale = Vector2(0.8, 0.8)  # 適度なサイズに調整
-	
-	# シーンに追加
-	add_child(character_sprite)
-	active_characters[character_name] = character_sprite
-	
-	# フェードイン効果
-	character_sprite.modulate.a = 0.0
-	var tween = create_tween()
-	tween.tween_property(character_sprite, "modulate:a", 1.0, 0.5)
-	tween.tween_callback(func(): character_animation_finished.emit())
-		await get_tree().create_timer(0.5).timeout # フェードインの完了を待つ
+        # 既存のキャラクターがいる場合は削除
+        if active_characters.has(character_name):
+                hide_character(character_name)
+
+        var character_sprite := Sprite2D.new()
+        character_sprite.name = character_name
+        character_sprite.texture = load_character_image(character_name, expression)
+        character_sprite.position = positions.get(position, Vector2.ZERO)
+        character_sprite.scale = Vector2(0.8, 0.8)
+        character_sprite.modulate.a = 0.0
+
+        add_child(character_sprite)
+        active_characters[character_name] = character_sprite
+
+        var tween := create_tween()
+        tween.tween_property(character_sprite, "modulate:a", 1.0, 0.5)
+        tween.finished.connect(func():
+                if active_characters.get(character_name) == character_sprite:
+                        character_animation_finished.emit()
+        , Object.CONNECT_ONE_SHOT)
 
 # キャラクターを非表示
 func hide_character(character_name: String):
-	if character_name in active_characters:
-		var character_sprite = active_characters[character_name]
-		
-		# フェードアウト効果
-		var tween = create_tween()
-		tween.tween_property(character_sprite, "modulate:a", 0.0, 0.3)
-		tween.tween_callback(func(): 
-			character_sprite.queue_free()
-			active_characters.erase(character_name)
-			character_animation_finished.emit()
-		)
-		await get_tree().create_timer(0.3).timeout # フェードアウトの完了を待つ
+        if not active_characters.has(character_name):
+                return
+
+        var character_sprite: Sprite2D = active_characters[character_name]
+        var tween := create_tween()
+        tween.tween_property(character_sprite, "modulate:a", 0.0, 0.3)
+        tween.finished.connect(func():
+                if not is_instance_valid(character_sprite):
+                        return
+                character_sprite.queue_free()
+                active_characters.erase(character_name)
+                character_animation_finished.emit()
+        , Object.CONNECT_ONE_SHOT)
 
 # 表情を変更
 func change_expression(character_name: String, expression: String):
@@ -236,13 +230,4 @@ func get_line_points(start: Vector2i, end: Vector2i) -> Array:
 			y += sy
 	
 	return points
-
-# キャラクター画像フォルダを作成
-func create_character_folders():
-	var dir = DirAccess.open("res://")
-	if dir:
-		for character in character_paths.keys():
-			var path = character_paths[character]
-			if not dir.dir_exists(path):
-				dir.make_dir_recursive(path)
 
