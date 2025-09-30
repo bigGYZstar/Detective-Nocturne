@@ -96,14 +96,15 @@ func load_save_data(save_data: Dictionary):
 
 # 設定の適用
 func apply_settings():
-	# 音量設定
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(settings.master_volume))
-	
-	# フルスクリーン設定
-	if settings.fullscreen:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-	else:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+        # 音量設定
+        var master_volume = settings.get("master_volume", 1.0)
+        AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(master_volume))
+
+        # フルスクリーン設定
+        if settings.get("fullscreen", false):
+                DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+        else:
+                DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 
 # 次のシーンへ進む
 func advance_scene():

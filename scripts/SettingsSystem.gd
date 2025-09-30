@@ -34,24 +34,30 @@ func _ready():
 
 # 設定UIを更新
 func update_ui():
-	var settings = GameManager.instance.settings
-	
-	master_volume_slider.value = settings.master_volume * 100
-	bgm_volume_slider.value = settings.bgm_volume * 100
-	se_volume_slider.value = settings.se_volume * 100
-	text_speed_slider.value = settings.text_speed * 100
-	auto_speed_slider.value = settings.auto_speed * 50
-	fullscreen_button.button_pressed = settings.fullscreen
+        var settings = GameManager.instance.settings
+        var master_volume = settings.get("master_volume", 1.0)
+        var bgm_volume = settings.get("bgm_volume", 0.8)
+        var se_volume = settings.get("se_volume", 0.8)
+        var text_speed = settings.get("text_speed", 1.0)
+        var auto_speed = settings.get("auto_speed", 2.0)
+        var fullscreen = settings.get("fullscreen", false)
+
+        master_volume_slider.value = master_volume * 100
+        bgm_volume_slider.value = bgm_volume * 100
+        se_volume_slider.value = se_volume * 100
+        text_speed_slider.value = text_speed * 100
+        auto_speed_slider.value = auto_speed * 50
+        fullscreen_button.button_pressed = fullscreen
 
 # マスター音量変更
 func _on_master_volume_changed(value: float):
-	GameManager.instance.settings.master_volume = value / 100.0
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(value / 100.0))
-	settings_changed.emit()
+        GameManager.instance.settings["master_volume"] = value / 100.0
+        AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(value / 100.0))
+        settings_changed.emit()
 
 # BGM音量変更
 func _on_bgm_volume_changed(value: float):
-	GameManager.instance.settings.bgm_volume = value / 100.0
+        GameManager.instance.settings["bgm_volume"] = value / 100.0
 	# BGMバスが存在する場合の処理
 	var bgm_bus_index = AudioServer.get_bus_index("BGM")
 	if bgm_bus_index != -1:
@@ -60,7 +66,7 @@ func _on_bgm_volume_changed(value: float):
 
 # SE音量変更
 func _on_se_volume_changed(value: float):
-	GameManager.instance.settings.se_volume = value / 100.0
+        GameManager.instance.settings["se_volume"] = value / 100.0
 	# SEバスが存在する場合の処理
 	var se_bus_index = AudioServer.get_bus_index("SE")
 	if se_bus_index != -1:
@@ -69,17 +75,17 @@ func _on_se_volume_changed(value: float):
 
 # テキスト速度変更
 func _on_text_speed_changed(value: float):
-	GameManager.instance.settings.text_speed = value / 100.0
-	settings_changed.emit()
+        GameManager.instance.settings["text_speed"] = value / 100.0
+        settings_changed.emit()
 
 # オート速度変更
 func _on_auto_speed_changed(value: float):
-	GameManager.instance.settings.auto_speed = value / 50.0
-	settings_changed.emit()
+        GameManager.instance.settings["auto_speed"] = value / 50.0
+        settings_changed.emit()
 
 # フルスクリーン切り替え
 func _on_fullscreen_toggled(pressed: bool):
-	GameManager.instance.settings.fullscreen = pressed
+        GameManager.instance.settings["fullscreen"] = pressed
 	
 	if pressed:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
