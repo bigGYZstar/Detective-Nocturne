@@ -9,7 +9,7 @@ var current_scenario: Array = []
 var current_index: int = 0
 
 # 序章のサンプルシナリオ
-vvar prologue_scenario: Array = [
+var prologue_scenario: Array = [
 	{
 		"type": "narration",
 		"text": "夕暮れ時の探偵事務所。窓から差し込む夕日が、室内を銀色に染めている。"
@@ -237,7 +237,8 @@ vvar prologue_scenario: Array = [
 		"expression": "smile"
 	},
 	{
-		"type": "dialog",		"speaker": "瑠璃",
+		"type": "dialog",
+		"speaker": "瑠璃",
 		"text": "ありがとうございます...本当に、ありがとうございます。これで、少しだけ希望が持てました。"
 	},
 	{
@@ -288,9 +289,6 @@ func execute_next_command():
 func advance_scenario():
 	execute_next_command()
 
-signal scenario_command_executed(command: Dictionary)
-
-
 # 現在のシナリオ位置を取得
 func get_current_position() -> Dictionary:
 	return {
@@ -302,3 +300,4 @@ func get_current_position() -> Dictionary:
 func set_scenario_position(scenario: Array, index: int):
 	current_scenario = scenario
 	current_index = index
+
