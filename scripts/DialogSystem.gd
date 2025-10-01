@@ -112,7 +112,7 @@ func end_dialog():
 	dialog_finished.emit()
 
 # 選択肢を表示
-func show_choices(choices: Array):
+func show_choices(_choices: Array):
 	# 選択肢UIの実装（将来実装）
 	pass
 
