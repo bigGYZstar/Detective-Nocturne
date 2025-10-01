@@ -46,7 +46,7 @@ func _on_scenario_command(command: Dictionary):
 			}]
 			dialog_system.start_dialog(dialog_data)
 			# ダイアログ表示後にシナリオを進める
-			scenario_manager.advance_scenario()
+
 		
 		"narration":
 			# ナレーションを表示
@@ -56,7 +56,7 @@ func _on_scenario_command(command: Dictionary):
 			}]
 			dialog_system.start_dialog(dialog_data)
 			# ナレーション表示後にシナリオを進める
-			scenario_manager.advance_scenario()
+
 		
 		"show_character":
 			# キャラクターを表示
@@ -67,7 +67,7 @@ func _on_scenario_command(command: Dictionary):
 				command.get("expression", "normal")
 			)
 			# 次のコマンドを実行
-			scenario_manager.advance_scenario()
+
 		
 		"change_expression":
 			# 表情を変更
@@ -76,19 +76,19 @@ func _on_scenario_command(command: Dictionary):
 				command.expression
 			)
 			# 次のコマンドを実行
-			scenario_manager.advance_scenario()
+
 		
 		"hide_character":
 			# キャラクターを非表示
 			character_manager.hide_character(command.character)
 			# 次のコマンドを実行
-			scenario_manager.advance_scenario()
+
 		
 		"hide_all_characters":
 			# 全キャラクターを非表示
 			character_manager.hide_all_characters()
 			# 次のコマンドを実行
-			scenario_manager.advance_scenario()
+
 
 func get_character_position(position_string: String) -> CharacterManager.Position:
 	match position_string:
