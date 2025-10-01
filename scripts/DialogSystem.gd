@@ -119,3 +119,4 @@ func show_choices(_choices: Array):
 # ダイアログボックスの表示/非表示
 func toggle_dialog_box():
 	dialog_box.visible = !dialog_box.visible
+
