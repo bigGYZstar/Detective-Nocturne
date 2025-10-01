@@ -67,7 +67,7 @@ func show_character(character_name: String, position: Position, expression: Stri
 	var tween = create_tween()
 	tween.tween_property(character_sprite, "modulate:a", 1.0, 0.5)
 	tween.tween_callback(func(): character_animation_finished.emit())
-		await get_tree().create_timer(0.5).timeout # フェードインの完了を待つ
+	await get_tree().create_timer(0.5).timeout # フェードインの完了を待つ
 
 # キャラクターを非表示
 func hide_character(character_name: String):
@@ -82,7 +82,7 @@ func hide_character(character_name: String):
 			active_characters.erase(character_name)
 			character_animation_finished.emit()
 		)
-		await get_tree().create_timer(0.3).timeout # フェードアウトの完了を待つ
+	await get_tree().create_timer(0.3).timeout # フェードアウトの完了を待つ
 
 # 表情を変更
 func change_expression(character_name: String, expression: String):

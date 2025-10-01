@@ -11,12 +11,21 @@ extends Control
 var current_dialog_data: Array = []
 
 func _ready():
+	# GameManagerのインスタンスを初期化
+	if GameManager.instance == null:
+		var game_manager_node = GameManager.new()
+		add_child(game_manager_node)
+
 	# シグナル接続
 	dialog_system.dialog_finished.connect(_on_dialog_finished)
 	scenario_manager.scenario_command_executed.connect(_on_scenario_command)
 	
 	# 初期状態の設定
 	dialog_system.hide()
+
+	# GameManagerの状態がPLAYINGの場合のみシナリオを開始
+	if GameManager.instance and GameManager.instance.current_state == GameManager.GameState.PLAYING:
+		start_game()
 
 func _on_start_button_pressed():
 	# メニューを非表示にしてゲーム開始
@@ -36,6 +45,8 @@ func _on_scenario_command(command: Dictionary):
 				"text": command.text
 			}]
 			dialog_system.start_dialog(dialog_data)
+			# ダイアログ表示後にシナリオを進める
+			scenario_manager.advance_scenario()
 		
 		"narration":
 			# ナレーションを表示
@@ -44,6 +55,8 @@ func _on_scenario_command(command: Dictionary):
 				"text": command.text
 			}]
 			dialog_system.start_dialog(dialog_data)
+			# ナレーション表示後にシナリオを進める
+			scenario_manager.advance_scenario()
 		
 		"show_character":
 			# キャラクターを表示
