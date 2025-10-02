@@ -45,9 +45,8 @@ func _on_scenario_command(command: Dictionary):
 				"text": command.text
 			}]
 			dialog_system.start_dialog(dialog_data)
-			# ダイアログ表示後にシナリオを進める
+			# ダイアログ表示後にシナリオを進める（_on_dialog_finishedシグナルで処理されるため、ここでは何もしない）
 
-		
 		"narration":
 			# ナレーションを表示
 			var dialog_data = [{
@@ -55,9 +54,8 @@ func _on_scenario_command(command: Dictionary):
 				"text": command.text
 			}]
 			dialog_system.start_dialog(dialog_data)
-			# ナレーション表示後にシナリオを進める
+			# ナレーション表示後にシナリオを進める（_on_dialog_finishedシグナルで処理されるため、ここでは何もしない）
 
-		
 		"show_character":
 			# キャラクターを表示
 			var position = get_character_position(command.position)
@@ -66,29 +64,35 @@ func _on_scenario_command(command: Dictionary):
 				position, 
 				command.get("expression", "normal")
 			)
-			# 次のコマンドを実行
+			scenario_manager.advance_scenario()
 
-		
 		"change_expression":
 			# 表情を変更
 			character_manager.change_expression(
 				command.character, 
 				command.expression
 			)
-			# 次のコマンドを実行
+			scenario_manager.advance_scenario()
 
-		
 		"hide_character":
 			# キャラクターを非表示
 			character_manager.hide_character(command.character)
-			# 次のコマンドを実行
+			scenario_manager.advance_scenario()
 
-		
 		"hide_all_characters":
 			# 全キャラクターを非表示
 			character_manager.hide_all_characters()
-			# 次のコマンドを実行
+			scenario_manager.advance_scenario()
 
+		"play_bgm":
+			# BGMを再生
+			GameManager.instance.play_bgm(command.path, command.get("volume", 1.0), command.get("loop", true))
+			scenario_manager.advance_scenario()
+
+		"stop_bgm":
+			# BGMを停止
+			GameManager.instance.stop_bgm()
+			scenario_manager.advance_scenario()
 
 func get_character_position(position_string: String) -> CharacterManager.Position:
 	match position_string:
@@ -107,7 +111,11 @@ func get_character_position(position_string: String) -> CharacterManager.Positio
 
 func _on_dialog_finished():
 	# ダイアログ終了後、次のシナリオコマンドを実行
-	scenario_manager.advance_scenario()
+	if scenario_manager.has_next_command():
+		scenario_manager.advance_scenario()
+	else:
+		print("Scenario finished. Quitting game.")
+		get_tree().quit()
 
 func _input(event):
 	# ESCキーでメニュー表示切り替え
@@ -115,3 +123,4 @@ func _input(event):
 		if GameManager.instance.current_state == GameManager.GameState.DIALOG:
 			return  # ダイアログ中はメニューを開かない
 		menu_layer.visible = !menu_layer.visible
+

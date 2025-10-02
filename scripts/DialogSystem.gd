@@ -46,6 +46,7 @@ func _input(event):
 		else:
 			# 次のダイアログへ
 			advance_dialog()
+			get_tree().set_input_as_handled() # 入力イベントを消費
 
 # ダイアログを開始
 func start_dialog(dialog_data: Array):
@@ -90,20 +91,24 @@ func start_typing(text: String):
 	
 	tween.tween_callback(complete_typing)
 
+
 # タイピング完了
 func complete_typing():
 	is_typing = false
-	next_indicator.show()
+	next_indicator.hide()
 	
 	# 自動進行の処理
-	if GameManager.instance.settings.get("auto_mode", false):
+	if GameManager.instance.settings.get("auto_mode", false) or GameManager.instance.get_flag("auto_advance_dialog"):
 		await get_tree().create_timer(GameManager.instance.settings.auto_speed).timeout
 		advance_dialog()
 
 # ダイアログを進める
 func advance_dialog():
 	current_index += 1
-	display_current_dialog()
+	if current_index < current_dialog.size():
+		display_current_dialog()
+	else:
+		end_dialog()
 
 # ダイアログ終了
 func end_dialog():

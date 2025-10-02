@@ -119,3 +119,74 @@ func advance_chapter():
 # ゲーム終了
 func quit_game():
 	get_tree().quit()
+
+
+# BGM管理
+var bgm_player: AudioStreamPlayer
+
+func _init():
+	# AudioStreamPlayerを動的に作成
+	bgm_player = AudioStreamPlayer.new()
+	add_child(bgm_player)
+
+func play_bgm(path: String, volume: float = 1.0, loop: bool = true):
+	if not path.is_empty():
+		var audio_stream = load(path)
+		if audio_stream:
+			bgm_player.stream = audio_stream
+			bgm_player.volume_db = linear_to_db(volume * settings.bgm_volume)
+			bgm_player.bus = "BGM"
+			bgm_player.play()
+			print("Playing BGM: ", path)
+		else:
+			printerr("Failed to load BGM: ", path)
+
+func stop_bgm():
+	bgm_player.stop()
+	print("BGM stopped.")
+
+func set_bgm_volume(volume: float):
+	settings.bgm_volume = volume
+	if bgm_player.stream:
+		bgm_player.volume_db = linear_to_db(settings.bgm_volume)
+	print("BGM volume set to: ", volume)
+
+
+
+# セーブデータのパス
+const SAVE_PATH = "user://savegame.dat"
+
+# ゲームをセーブ
+func save_game() -> bool:
+	var save_dict = create_save_data()
+	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	if file:
+		file.store_string(JSON.stringify(save_dict))
+		file.close()
+		print("Game saved successfully.")
+		return true
+	else:
+		printerr("Failed to save game.")
+		return false
+
+# ゲームをロード
+func load_game() -> Dictionary:
+	if not FileAccess.file_exists(SAVE_PATH):
+		print("No save game found.")
+		return {}
+
+	var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
+	if file:
+		var content = file.get_as_text()
+		file.close()
+		var save_dict = JSON.parse_string(content)
+		if save_dict:
+			print("Game loaded successfully.")
+			return save_dict
+		else:
+			printerr("Failed to parse save data.")
+			return {}
+	else:
+		printerr("Failed to load game.")	
+		return {}
+

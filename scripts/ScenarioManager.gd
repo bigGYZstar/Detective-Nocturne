@@ -301,3 +301,9 @@ func set_scenario_position(scenario: Array, index: int):
 	current_scenario = scenario
 	current_index = index
 
+
+
+# 次のコマンドがあるか確認
+func has_next_command() -> bool:
+	return current_index < current_scenario.size()
+

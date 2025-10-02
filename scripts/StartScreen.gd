@@ -14,9 +14,9 @@ func _ready():
 	
 	# セーブデータの存在確認
 	check_save_data()
-	
-	# 自動的にゲームを開始（テスト用）
-	call_deferred("_on_start_button_pressed")
+
+
+
 
 func setup_buttons():
 	# ボタンのスタイル設定
@@ -52,16 +52,21 @@ func setup_buttons():
 		button.add_theme_color_override("font_hover_color", Color.WHITE)
 
 func check_save_data():
-	# セーブデータの存在確認（実装予定）
-	# 現在は「つづきから」ボタンを無効化
-	continue_button.disabled = true
-	continue_button.modulate = Color(0.6, 0.6, 0.6, 1.0)
+	# セーブデータの存在確認
+	if GameManager.instance and FileAccess.file_exists(GameManager.SAVE_PATH):
+		continue_button.disabled = false
+		continue_button.modulate = Color(1.0, 1.0, 1.0, 1.0)
+	else:
+		continue_button.disabled = true
+		continue_button.modulate = Color(0.6, 0.6, 0.6, 1.0)
+
 
 # ボタンのシグナル処理
 func _on_start_button_pressed():
 	print("新しいゲームを開始します")
 	# GameManagerの状態をリセットして新しいゲームを開始
 	if GameManager.instance:
+		GameManager.instance.stop_bgm() # BGMを停止
 		GameManager.instance.current_chapter = 0
 		GameManager.instance.current_scene = 0
 		GameManager.instance.character_affection = {"mizuki": 0, "saori": 0, "ruri": 0}
@@ -73,13 +78,18 @@ func _on_start_button_pressed():
 
 func _on_continue_button_pressed():
 	print("セーブデータからゲームを継続します")
-	# セーブデータの読み込み処理（実装予定）
-	print("セーブデータ機能は開発中です")
+	if GameManager.instance:
+		var save_data = GameManager.instance.load_game()
+		if save_data:
+			GameManager.instance.load_save_data(save_data)
+			GameManager.instance.change_state(GameManager.GameState.PLAYING)
+			get_tree().change_scene_to_file("res://scenes/Main.tscn")
+		else:
+			print("セーブデータが見つかりませんでした。")
 
 func _on_gallery_button_pressed():
-	print("ギャラリーを開きます")
-	# ギャラリーシーンに移行（実装予定）
-	print("ギャラリー機能は開発中です")
+	print("ギャラリーを開きます (機能は開発中です)")
+	# 将来的にギャラリーシーンに移行する処理をここに追加
 
 # キーボード入力の処理
 func _input(event):
