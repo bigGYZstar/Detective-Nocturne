@@ -46,7 +46,7 @@ func _input(event):
 		else:
 			# 次のダイアログへ
 			advance_dialog()
-			get_tree().set_input_as_handled() # 入力イベントを消費
+			return true # 入力イベントを消費
 
 # ダイアログを開始
 func start_dialog(dialog_data: Array):

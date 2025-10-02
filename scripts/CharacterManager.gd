@@ -98,7 +98,14 @@ func hide_all_characters():
 
 # 実際のキャラクター画像を読み込み
 func load_character_image(character_name: String, expression: String = "normal") -> Texture2D:
-	var image_path = "res://assets/characters/" + character_name + "_" + expression + ".png"
+	var transparent_image_path = "res://assets/characters/" + character_name + "_" + expression + "_transparent.png"
+	var original_image_path = "res://assets/characters/" + character_name + "_" + expression + ".png"
+	
+	var image_path = ""
+	if ResourceLoader.exists(transparent_image_path):
+		image_path = transparent_image_path
+	else:
+		image_path = original_image_path
 	
 	# 実際の画像ファイルを読み込み
 	if ResourceLoader.exists(image_path):
