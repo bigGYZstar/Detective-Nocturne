@@ -78,15 +78,15 @@ func start_typing(text: String):
 	is_typing = true
 	next_indicator.hide()
 	dialog_text.clear()
-	dialog_text.text = text # まずは全テキストを設定
+	dialog_text.set_bbcode(text) # BBCodeをサポートするためにset_bbcodeを使用
 	dialog_text.set_visible_characters(0) # 表示文字数を0に設定
 	
 	var tween = create_tween()
-	var char_count = text.length()
+	var char_count = dialog_text.get_parsed_text().length() # BBCodeをパースした後の文字数を取得
 	
 	tween.tween_method(Callable(dialog_text, "set_visible_characters"), 0, char_count, char_count * typing_speed / GameManager.instance.settings.text_speed)
 	
-	tween.tween_callback(complete_typing)
+	tween.tween_callback(Callable(self, "complete_typing")) # complete_typingをCallableで指定
 
 
 # タイピング完了
