@@ -77,17 +77,14 @@ func display_current_dialog():
 func start_typing(text: String):
 	is_typing = true
 	next_indicator.hide()
-	dialog_text.text = ""
-	
-	# リッチテキストの処理
-	dialog_text.append_text("")
+	dialog_text.clear()
+	dialog_text.text = text # まずは全テキストを設定
+	dialog_text.set_visible_characters(0) # 表示文字数を0に設定
 	
 	var tween = create_tween()
 	var char_count = text.length()
 	
-	for i in range(char_count + 1):
-		tween.tween_callback(func(): dialog_text.text = text.substr(0, i))
-		await get_tree().create_timer(typing_speed / GameManager.instance.settings.text_speed).timeout
+	tween.tween_method(Callable(dialog_text, "set_visible_characters"), 0, char_count, char_count * typing_speed / GameManager.instance.settings.text_speed)
 	
 	tween.tween_callback(complete_typing)
 
@@ -95,7 +92,7 @@ func start_typing(text: String):
 # タイピング完了
 func complete_typing():
 	is_typing = false
-	next_indicator.hide()
+	next_indicator.show()
 	
 	# 自動進行の処理
 	if GameManager.instance.settings.get("auto_mode", false) or GameManager.instance.get_flag("auto_advance_dialog"):
