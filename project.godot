@@ -14,7 +14,7 @@ config/name="Detective Nocturne - Silver Twilight and Azazel's Key"
 config/description="18+ Adventure Game - Detective Visual Novel"
 config/version="0.1.0"
 run/main_scene="res://scenes/StartScreen.tscn"
-config/features=PackedStringArray("4.3", "GL Compatibility")
+config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [display]
