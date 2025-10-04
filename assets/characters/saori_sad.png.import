@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byfqndypf2ppc"
-path="res://.godot/imported/ruri_normal.png-94802fba83bb13ab7606cba22bb290a9.ctex"
+uid="uid://cubhxdg2iu4uy"
+path="res://.godot/imported/saori_sad.png-99e09770416c933442a4e0aef2c819fa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/ruri_normal.png"
-dest_files=["res://.godot/imported/ruri_normal.png-94802fba83bb13ab7606cba22bb290a9.ctex"]
+source_file="res://assets/characters/saori_sad.png"
+dest_files=["res://.godot/imported/saori_sad.png-99e09770416c933442a4e0aef2c819fa.ctex"]
 
 [params]
 

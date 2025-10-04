@@ -1,9 +1,7 @@
-extends Node2D
+﻿extends Node2D
 
-# キャラクター管理システム
 class_name CharacterManager
 
-# キャラクター表示位置
 enum Position {
 	LEFT,
 	CENTER,
@@ -12,20 +10,10 @@ enum Position {
 	FAR_RIGHT
 }
 
-# 現在表示中のキャラクター
 var active_characters: Dictionary = {}
 
-# キャラクター画像のパス
-var character_paths: Dictionary = {
-	"mizuki": "res://assets/images/characters/mizuki/",
-	"saori": "res://assets/images/characters/saori/",
-	"ruri": "res://assets/images/characters/ruri/"
-}
-
-# 表情リスト
 var expressions: Array = ["normal", "smile", "sad", "angry", "surprised"]
 
-# 位置座標
 var positions: Dictionary = {
 	Position.FAR_LEFT: Vector2(200, 540),
 	Position.LEFT: Vector2(480, 540),
@@ -36,98 +24,96 @@ var positions: Dictionary = {
 
 signal character_animation_finished
 
-func _ready():
-	# キャラクター画像フォルダを作成
-	create_character_folders()
-
-# キャラクターを表示
-func show_character(character_name: String, position: Position, expression: String = "normal"):
-	# 既存のキャラクターがいる場合は削除
+func show_character(character_name: String, position: Position, expression: String = "normal") -> void:
 	if character_name in active_characters:
 		hide_character(character_name)
-	
-	# 新しいキャラクターを作成
-	var character_sprite = Sprite2D.new()
-	character_sprite.name = character_name
-	
-	# 実際の画像ファイルを読み込み
-	var texture = load_character_image(character_name, expression)
-	character_sprite.texture = texture
-	
-	# 位置を設定
-	character_sprite.position = positions[position]
-	character_sprite.scale = Vector2(0.8, 0.8)  # 適度なサイズに調整
-	
-	# シーンに追加
-	add_child(character_sprite)
-	active_characters[character_name] = character_sprite
-	
-	# フェードイン効果
-	character_sprite.modulate.a = 0.0
-	var tween = create_tween()
-	tween.tween_property(character_sprite, "modulate:a", 1.0, 0.5)
-	tween.tween_callback(func(): character_animation_finished.emit())
-	await get_tree().create_timer(0.5).timeout # フェードインの完了を待つ
 
-# キャラクターを非表示
-func hide_character(character_name: String):
+	var sprite := Sprite2D.new()
+	sprite.name = character_name
+
+	var texture := _load_character_texture(character_name, expression)
+	sprite.texture = texture
+	sprite.position = positions[position]
+	sprite.scale = Vector2(0.8, 0.8)
+
+	add_child(sprite)
+	active_characters[character_name] = sprite
+
+	sprite.modulate.a = 0.0
+	var tween := create_tween()
+	tween.tween_property(sprite, "modulate:a", 1.0, 0.5)
+	tween.tween_callback(func(): character_animation_finished.emit())
+	await get_tree().create_timer(0.5).timeout
+
+func hide_character(character_name: String) -> void:
 	if character_name in active_characters:
-		var character_sprite = active_characters[character_name]
-		
-		# フェードアウト効果
-		var tween = create_tween()
-		tween.tween_property(character_sprite, "modulate:a", 0.0, 0.3)
-		tween.tween_callback(func(): 
-			character_sprite.queue_free()
+		var sprite: Sprite2D = active_characters[character_name]
+		var tween := create_tween()
+		tween.tween_property(sprite, "modulate:a", 0.0, 0.3)
+		tween.tween_callback(func():
+			sprite.queue_free()
 			active_characters.erase(character_name)
 			character_animation_finished.emit()
 		)
-	await get_tree().create_timer(0.3).timeout # フェードアウトの完了を待つ
+	await get_tree().create_timer(0.3).timeout
 
-# 表情を変更
-func change_expression(character_name: String, expression: String):
+func change_expression(character_name: String, expression: String) -> void:
 	if character_name in active_characters:
-		var character_sprite = active_characters[character_name]
-		var texture = load_character_image(character_name, expression)
-		character_sprite.texture = texture
+		var sprite: Sprite2D = active_characters[character_name]
+		sprite.texture = _load_character_texture(character_name, expression)
 
-# 全キャラクターを非表示
-func hide_all_characters():
-	for character_name in active_characters.keys():
-		hide_character(character_name)
+func hide_all_characters() -> void:
+	for name in active_characters.keys():
+		hide_character(name)
 
-# 実際のキャラクター画像を読み込み
-func load_character_image(character_name: String, expression: String = "normal") -> Texture2D:
-	var transparent_image_path = "res://assets/characters/" + character_name + "_" + expression + "_transparent.png"
-	var original_image_path = "res://assets/characters/" + character_name + "_" + expression + ".png"
-	
-	var image_path = ""
-	if ResourceLoader.exists(transparent_image_path):
-		image_path = transparent_image_path
-	else:
-		image_path = original_image_path
-	
-	# 実際の画像ファイルを読み込み
-	if ResourceLoader.exists(image_path):
-		var texture = load(image_path) as Texture2D
-		if texture:
-			print("Loaded character image: ", image_path)
-			return texture
-		else:
-			print("Failed to load texture: ", image_path)
-	else:
-		print("Image file not found: ", image_path)
-	
-	# フォールバック：プレースホルダー画像を生成
-	print("Using placeholder for: ", character_name, " with expression: ", expression)
-	return create_placeholder_texture(character_name, expression)
+func _load_character_texture(character_name: String, expression: String) -> Texture2D:
+	var transparent_path := "res://assets/characters/%s_%s_transparent.png" % [character_name, expression]
+	var regular_path := "res://assets/characters/%s_%s.png" % [character_name, expression]
 
-# プレースホルダーテクスチャを作成
-func create_placeholder_texture(character_name: String, expression: String) -> ImageTexture:
-	var image = Image.create(400, 800, false, Image.FORMAT_RGB8)
-	
-	# キャラクターごとに色を変える
-	var color: Color
+	var path := ""
+	if ResourceLoader.exists(transparent_path):
+		path = transparent_path
+	elif ResourceLoader.exists(regular_path):
+		path = regular_path
+
+	if path.is_empty():
+		printerr("[CharacterManager] Image file not found for %s:%s" % [character_name, expression])
+		return _create_placeholder_texture(character_name, expression)
+
+	var image := Image.load_from_file(path)
+	if image == null:
+		printerr("[CharacterManager] Failed to load image at %s" % path)
+		return _create_placeholder_texture(character_name, expression)
+
+	image.convert(Image.FORMAT_RGBA8)
+	var has_alpha := image.detect_alpha()
+	var changed := false
+	if not has_alpha:
+		changed = _apply_alpha_from_white(image)
+		if changed:
+			image.fix_alpha_edges()
+
+	var texture := ImageTexture.create_from_image(image)
+	if changed:
+		print("[CharacterManager] Converted white background to transparent for %s" % path)
+	return texture
+
+func _apply_alpha_from_white(image: Image) -> bool:
+	var width := image.get_width()
+	var height := image.get_height()
+	var changed := false
+	for y in range(height):
+		for x in range(width):
+			var color := image.get_pixel(x, y)
+			if color.a > 0.0 and color.r >= 0.98 and color.g >= 0.98 and color.b >= 0.98:
+				color.a = 0.0
+				image.set_pixel(x, y, color)
+				changed = true
+	return changed
+
+func _create_placeholder_texture(character_name: String, expression: String) -> ImageTexture:
+	var image := Image.create(400, 800, false, Image.FORMAT_RGB8)
+	var color := Color.GRAY
 	match character_name:
 		"mizuki":
 			color = Color.CYAN
@@ -135,10 +121,6 @@ func create_placeholder_texture(character_name: String, expression: String) -> I
 			color = Color.LIGHT_PINK
 		"ruri":
 			color = Color.LIGHT_BLUE
-		_:
-			color = Color.GRAY
-	
-	# 表情によって明度を変える
 	match expression:
 		"smile":
 			color = color.lightened(0.2)
@@ -148,108 +130,77 @@ func create_placeholder_texture(character_name: String, expression: String) -> I
 			color = Color.RED.lerp(color, 0.5)
 		"surprised":
 			color = Color.YELLOW.lerp(color, 0.3)
-	
+
 	image.fill(color)
-	
-	# 簡単な顔を描画
-	draw_simple_face(image, expression)
-	
-	var texture = ImageTexture.new()
+	_draw_simple_face(image, expression)
+
+	var texture := ImageTexture.new()
 	texture.set_image(image)
 	return texture
 
-# 簡単な顔を描画
-func draw_simple_face(image: Image, expression: String):
-	var width = image.get_width()
-	var height = image.get_height()
-	
-	# 目の位置
-	var eye_y = height * 0.3
-	var left_eye_x = width * 0.3
-	var right_eye_x = width * 0.7
-	
-	# 口の位置
-	var mouth_y = height * 0.6
-	var mouth_x = width * 0.5
-	
-	# 目を描画
-	draw_circle_on_image(image, Vector2i(left_eye_x, eye_y), 20, Color.BLACK)
-	draw_circle_on_image(image, Vector2i(right_eye_x, eye_y), 20, Color.BLACK)
-	
-	# 表情に応じた口を描画
+func _draw_simple_face(image: Image, expression: String) -> void:
+	var width := image.get_width()
+	var height := image.get_height()
+	var eye_y := int(height * 0.3)
+	var left_eye_x := int(width * 0.3)
+	var right_eye_x := int(width * 0.7)
+	var mouth_y := int(height * 0.6)
+	var mouth_x := int(width * 0.5)
+
+	_draw_circle(image, Vector2i(left_eye_x, eye_y), 20, Color.BLACK)
+	_draw_circle(image, Vector2i(right_eye_x, eye_y), 20, Color.BLACK)
 	match expression:
 		"smile":
-			draw_arc_on_image(image, Vector2i(mouth_x, mouth_y), 30, 0, PI, Color.BLACK)
+			_draw_arc(image, Vector2i(mouth_x, mouth_y), 30, 0, PI, Color.BLACK)
 		"sad":
-			draw_arc_on_image(image, Vector2i(mouth_x, mouth_y + 20), 30, PI, 2*PI, Color.BLACK)
+			_draw_arc(image, Vector2i(mouth_x, mouth_y + 20), 30, PI, TAU, Color.BLACK)
 		"angry":
-			draw_line_on_image(image, Vector2i(mouth_x - 30, mouth_y), Vector2i(mouth_x + 30, mouth_y), Color.BLACK)
+			_draw_line(image, Vector2i(mouth_x - 30, mouth_y), Vector2i(mouth_x + 30, mouth_y), Color.BLACK)
 		"surprised":
-			draw_circle_on_image(image, Vector2i(mouth_x, mouth_y), 15, Color.BLACK)
-		_:  # normal
-			draw_line_on_image(image, Vector2i(mouth_x - 20, mouth_y), Vector2i(mouth_x + 20, mouth_y), Color.BLACK)
+			_draw_circle(image, Vector2i(mouth_x, mouth_y), 15, Color.BLACK)
+		_:
+			_draw_line(image, Vector2i(mouth_x - 20, mouth_y), Vector2i(mouth_x + 20, mouth_y), Color.BLACK)
 
-# 画像に円を描画
-func draw_circle_on_image(image: Image, center: Vector2i, radius: int, color: Color):
+func _draw_circle(image: Image, center: Vector2i, radius: int, color: Color) -> void:
 	for y in range(center.y - radius, center.y + radius + 1):
 		for x in range(center.x - radius, center.x + radius + 1):
 			if x >= 0 and x < image.get_width() and y >= 0 and y < image.get_height():
-				var distance = Vector2(x - center.x, y - center.y).length()
-				if distance <= radius:
+				if Vector2(x - center.x, y - center.y).length() <= radius:
 					image.set_pixel(x, y, color)
 
-# 画像に線を描画
-func draw_line_on_image(image: Image, start: Vector2i, end: Vector2i, color: Color):
-	var points = get_line_points(start, end)
+func _draw_line(image: Image, start: Vector2i, end: Vector2i, color: Color) -> void:
+	var points := _bresenham(start, end)
 	for point in points:
 		if point.x >= 0 and point.x < image.get_width() and point.y >= 0 and point.y < image.get_height():
 			image.set_pixel(point.x, point.y, color)
 
-# 画像に弧を描画
-func draw_arc_on_image(image: Image, center: Vector2i, radius: int, start_angle: float, end_angle: float, color: Color):
-	var steps = 50
+func _draw_arc(image: Image, center: Vector2i, radius: int, start_angle: float, end_angle: float, color: Color) -> void:
+	var steps := 60
 	for i in range(steps + 1):
-		var angle = start_angle + (end_angle - start_angle) * i / steps
-		var x = center.x + cos(angle) * radius
-		var y = center.y + sin(angle) * radius
-		var point = Vector2i(x, y)
-		if point.x >= 0 and point.x < image.get_width() and point.y >= 0 and point.y < image.get_height():
-			image.set_pixel(point.x, point.y, color)
+		var angle := start_angle + (end_angle - start_angle) * i / steps
+		var x := int(center.x + cos(angle) * radius)
+		var y := int(center.y + sin(angle) * radius)
+		if x >= 0 and x < image.get_width() and y >= 0 and y < image.get_height():
+			image.set_pixel(x, y, color)
 
-# 線の点を取得（Bresenhamアルゴリズム）
-func get_line_points(start: Vector2i, end: Vector2i) -> Array:
-	var points = []
-	var dx = abs(end.x - start.x)
-	var dy = abs(end.y - start.y)
-	var sx = 1 if start.x < end.x else -1
-	var sy = 1 if start.y < end.y else -1
-	var err = dx - dy
-	
-	var x = start.x
-	var y = start.y
-	
+func _bresenham(start: Vector2i, end: Vector2i) -> Array[Vector2i]:
+	var points: Array[Vector2i] = []
+	var dx := abs(end.x - start.x)
+	var dy := abs(end.y - start.y)
+	var sx := 1 if start.x < end.x else -1
+	var sy := 1 if start.y < end.y else -1
+	var err := dx - dy
+	var x := start.x
+	var y := start.y
 	while true:
 		points.append(Vector2i(x, y))
-		
 		if x == end.x and y == end.y:
 			break
-			
-		var e2 = 2 * err
+		var e2 := 2 * err
 		if e2 > -dy:
 			err -= dy
 			x += sx
 		if e2 < dx:
 			err += dx
 			y += sy
-	
 	return points
-
-# キャラクター画像フォルダを作成
-func create_character_folders():
-	var dir = DirAccess.open("res://")
-	if dir:
-		for character in character_paths.keys():
-			var path = character_paths[character]
-			if not dir.dir_exists(path):
-				dir.make_dir_recursive(path)
-

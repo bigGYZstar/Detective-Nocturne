@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byfqndypf2ppc"
-path="res://.godot/imported/ruri_normal.png-94802fba83bb13ab7606cba22bb290a9.ctex"
+uid="uid://cfknvbj2wng80"
+path="res://.godot/imported/ruri_smile_transparent.png-dee3bb7e0c5682029af69930f18aa416.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/ruri_normal.png"
-dest_files=["res://.godot/imported/ruri_normal.png-94802fba83bb13ab7606cba22bb290a9.ctex"]
+source_file="res://assets/characters/ruri_smile_transparent.png"
+dest_files=["res://.godot/imported/ruri_smile_transparent.png-dee3bb7e0c5682029af69930f18aa416.ctex"]
 
 [params]
 

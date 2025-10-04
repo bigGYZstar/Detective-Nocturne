@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byfqndypf2ppc"
-path="res://.godot/imported/ruri_normal.png-94802fba83bb13ab7606cba22bb290a9.ctex"
+uid="uid://g3h4ammd0w1l"
+path="res://.godot/imported/dialog_scene_image.png-d58141e7c086d0f7a9322561be9882df.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/characters/ruri_normal.png"
-dest_files=["res://.godot/imported/ruri_normal.png-94802fba83bb13ab7606cba22bb290a9.ctex"]
+source_file="res://dialog_scene_image.png"
+dest_files=["res://.godot/imported/dialog_scene_image.png-d58141e7c086d0f7a9322561be9882df.ctex"]
 
 [params]
 
