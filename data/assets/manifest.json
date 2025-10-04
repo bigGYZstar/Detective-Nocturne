@@ -16,7 +16,7 @@
       "sad": "res://assets/characters/ruri_sad_new.png"
     }
   },
-  "backgrounds": {
+  "bg": {
     "detective_office_dusk": "res://assets/backgrounds/detective_office_dusk_v2.png",
     "living_room_crime_scene": "res://assets/backgrounds/living_room_crime_scene_v2.png",
     "rainy_neon_back_alley": "res://assets/backgrounds/rainy_neon_back_alley_v2.png",
@@ -27,5 +27,8 @@
   "ui": {
     "dialogue_box": "res://assets/ui/dialogue_ui_mockup.png",
     "menu_screen": "res://assets/ui/menu_ui_mockup.png"
-  }
+  },
+  "bgm": {},
+  "sfx": {},
+  "voice": {}
 }

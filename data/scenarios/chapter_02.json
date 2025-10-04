@@ -1,262 +1,267 @@
-[
-  {
-    "id": "ch02_001",
-    "type": "change_background",
-    "background": "mysterious_assembly_hall"
-  },
-  {
-    "id": "ch02_002",
-    "type": "narration",
-    "text": {
-      "ja": "深夜。みずきと沙織は、旧市街の廃教会へと潜入した。建物の内部は薄暗く、不気味な雰囲気に包まれていた。"
+{
+  "schema_version": 1,
+  "id": "chapter_02",
+  "lines": [
+    {
+      "id": "C02-0001",
+      "type": "change_background",
+      "background": "mysterious_assembly_hall"
+    },
+    {
+      "id": "C02-0002",
+      "type": "narration",
+      "text": {
+        "ja": "深夜。みずきと沙織は、旧市街の廃教会へと潜入した。建物の内部は薄暗く、不気味な雰囲気に包まれていた。"
+      }
+    },
+    {
+      "id": "C02-0003",
+      "type": "show_character",
+      "character": "mizuki",
+      "position": "left",
+      "expression": "normal"
+    },
+    {
+      "id": "C02-0004",
+      "type": "dialog",
+      "speaker": "mizuki",
+      "text": {
+        "ja": "静かに...誰かいるかもしれない。"
+      }
+    },
+    {
+      "id": "C02-0005",
+      "type": "show_character",
+      "character": "saori",
+      "position": "right",
+      "expression": "surprised"
+    },
+    {
+      "id": "C02-0006",
+      "type": "dialog",
+      "speaker": "saori",
+      "text": {
+        "ja": "みずきさん、あちらを...ろうそくの灯りが見えます。"
+      }
+    },
+    {
+      "id": "C02-0007",
+      "type": "narration",
+      "text": {
+        "ja": "二人は慎重に奥へと進む。そこには、奇妙な祭壇と、壁一面に描かれた古代文字が広がっていた。"
+      }
+    },
+    {
+      "id": "C02-0008",
+      "type": "change_expression",
+      "character": "mizuki",
+      "expression": "surprised"
+    },
+    {
+      "id": "C02-0009",
+      "type": "dialog",
+      "speaker": "mizuki",
+      "text": {
+        "ja": "これは...まるで儀式の場所ね。ここで一体何が行われていたの？"
+      }
+    },
+    {
+      "id": "C02-0010",
+      "type": "dialog",
+      "speaker": "saori",
+      "text": {
+        "ja": "この文字...古代シュメール語のようです。『アザゼルの鍵を用いて、禁断の扉を開く』と書かれています。"
+      }
+    },
+    {
+      "id": "C02-0011",
+      "type": "change_expression",
+      "character": "mizuki",
+      "expression": "sad"
+    },
+    {
+      "id": "C02-0012",
+      "type": "dialog",
+      "speaker": "mizuki",
+      "text": {
+        "ja": "やはり、この団体は本気でその鍵を探しているのね。そして一条氏も、その儀式に巻き込まれた可能性が高い。"
+      }
+    },
+    {
+      "id": "C02-0013",
+      "type": "narration",
+      "text": {
+        "ja": "その時、背後から足音が聞こえた。二人は振り返ると、そこには黒いローブを纏った男が立っていた。"
+      }
+    },
+    {
+      "id": "C02-0014",
+      "type": "hide_character",
+      "character": "saori"
+    },
+    {
+      "id": "C02-0015",
+      "type": "change_expression",
+      "character": "mizuki",
+      "expression": "surprised"
+    },
+    {
+      "id": "C02-0016",
+      "type": "dialog",
+      "speaker": "mizuki",
+      "text": {
+        "ja": "誰！？"
+      }
+    },
+    {
+      "id": "C02-0017",
+      "type": "dialog",
+      "speaker": "unknown_man",
+      "text": {
+        "ja": "ここは部外者が立ち入る場所ではない...お前たちは何者だ？"
+      }
+    },
+    {
+      "id": "C02-0018",
+      "type": "show_character",
+      "character": "saori",
+      "position": "right",
+      "expression": "surprised"
+    },
+    {
+      "id": "C02-0019",
+      "type": "dialog",
+      "speaker": "saori",
+      "text": {
+        "ja": "私たちは探偵です。一条氏の行方を探しています。あなたは銀の黄昏会の関係者ですか？"
+      }
+    },
+    {
+      "id": "C02-0020",
+      "type": "dialog",
+      "speaker": "unknown_man",
+      "text": {
+        "ja": "一条...あの愚か者か。彼は真実を知りすぎた。そして、代償を払うことになった。"
+      }
+    },
+    {
+      "id": "C02-0021",
+      "type": "change_expression",
+      "character": "mizuki",
+      "expression": "normal"
+    },
+    {
+      "id": "C02-0022",
+      "type": "dialog",
+      "speaker": "mizuki",
+      "text": {
+        "ja": "代償？一条氏に何をしたの！彼は今どこにいるの！？"
+      }
+    },
+    {
+      "id": "C02-0023",
+      "type": "dialog",
+      "speaker": "unknown_man",
+      "text": {
+        "ja": "それを知りたければ、お前たちも『試練』を受けるがいい。真実を知る資格があるかどうか、試してやろう。"
+      }
+    },
+    {
+      "id": "C02-0024",
+      "type": "narration",
+      "text": {
+        "ja": "男はそう言うと、祭壇の奥へと消えていった。残されたみずきと沙織は、一条氏の行方を探すため、さらに奥へと進む決意を固めた。"
+      }
+    },
+    {
+      "id": "C02-0025",
+      "type": "narration",
+      "text": {
+        "ja": "祭壇の裏側に隠された扉を発見した二人は、慎重にそれを開けた。そこには、古い書物と遺物が並ぶ秘密の部屋があった。"
+      }
+    },
+    {
+      "id": "C02-0026",
+      "type": "change_expression",
+      "character": "saori",
+      "expression": "normal"
+    },
+    {
+      "id": "C02-0027",
+      "type": "dialog",
+      "speaker": "saori",
+      "text": {
+        "ja": "みずきさん、こちらに日記のようなものが...一条氏のものかもしれません。"
+      }
+    },
+    {
+      "id": "C02-0028",
+      "type": "change_expression",
+      "character": "mizuki",
+      "expression": "surprised"
+    },
+    {
+      "id": "C02-0029",
+      "type": "dialog",
+      "speaker": "mizuki",
+      "text": {
+        "ja": "見せて...『アザゼルの鍵を見つけた。これで真実に辿り着ける。しかし、代償は大きすぎるかもしれない』..."
+      }
+    },
+    {
+      "id": "C02-0030",
+      "type": "dialog",
+      "speaker": "mizuki",
+      "text": {
+        "ja": "一条氏は鍵を見つけたのね。でも、その後どうなったの？"
+      }
+    },
+    {
+      "id": "C02-0031",
+      "type": "change_expression",
+      "character": "saori",
+      "expression": "sad"
+    },
+    {
+      "id": "C02-0032",
+      "type": "dialog",
+      "speaker": "saori",
+      "text": {
+        "ja": "最後のページには...『銀の黄昏会の真の目的を知った。私はもう戻れない。瑠璃、すまない』と。"
+      }
+    },
+    {
+      "id": "C02-0033",
+      "type": "change_expression",
+      "character": "mizuki",
+      "expression": "sad"
+    },
+    {
+      "id": "C02-0034",
+      "type": "dialog",
+      "speaker": "mizuki",
+      "text": {
+        "ja": "一条氏...あなたは一体何を知ってしまったの？そして、今どこにいるの？"
+      }
+    },
+    {
+      "id": "C02-0035",
+      "type": "narration",
+      "text": {
+        "ja": "二人は日記を手に、さらなる手がかりを求めて調査を続けることにした。しかし、銀の黄昏会の真の目的とは何なのか。そして、一条氏は本当に無事なのか。謎は深まるばかりだった..."
+      }
+    },
+    {
+      "id": "C02-0036",
+      "type": "hide_all_characters"
+    },
+    {
+      "id": "C02-0037",
+      "type": "narration",
+      "text": {
+        "ja": "第二章 完"
+      }
     }
-  },
-  {
-    "id": "ch02_003",
-    "type": "show_character",
-    "character": "mizuki",
-    "position": "left",
-    "expression": "normal"
-  },
-  {
-    "id": "ch02_004",
-    "type": "dialog",
-    "speaker": "mizuki",
-    "text": {
-      "ja": "静かに...誰かいるかもしれない。"
-    }
-  },
-  {
-    "id": "ch02_005",
-    "type": "show_character",
-    "character": "saori",
-    "position": "right",
-    "expression": "surprised"
-  },
-  {
-    "id": "ch02_006",
-    "type": "dialog",
-    "speaker": "saori",
-    "text": {
-      "ja": "みずきさん、あちらを...ろうそくの灯りが見えます。"
-    }
-  },
-  {
-    "id": "ch02_007",
-    "type": "narration",
-    "text": {
-      "ja": "二人は慎重に奥へと進む。そこには、奇妙な祭壇と、壁一面に描かれた古代文字が広がっていた。"
-    }
-  },
-  {
-    "id": "ch02_008",
-    "type": "change_expression",
-    "character": "mizuki",
-    "expression": "surprised"
-  },
-  {
-    "id": "ch02_009",
-    "type": "dialog",
-    "speaker": "mizuki",
-    "text": {
-      "ja": "これは...まるで儀式の場所ね。ここで一体何が行われていたの？"
-    }
-  },
-  {
-    "id": "ch02_010",
-    "type": "dialog",
-    "speaker": "saori",
-    "text": {
-      "ja": "この文字...古代シュメール語のようです。『アザゼルの鍵を用いて、禁断の扉を開く』と書かれています。"
-    }
-  },
-  {
-    "id": "ch02_011",
-    "type": "change_expression",
-    "character": "mizuki",
-    "expression": "sad"
-  },
-  {
-    "id": "ch02_012",
-    "type": "dialog",
-    "speaker": "mizuki",
-    "text": {
-      "ja": "やはり、この団体は本気でその鍵を探しているのね。そして一条氏も、その儀式に巻き込まれた可能性が高い。"
-    }
-  },
-  {
-    "id": "ch02_013",
-    "type": "narration",
-    "text": {
-      "ja": "その時、背後から足音が聞こえた。二人は振り返ると、そこには黒いローブを纏った男が立っていた。"
-    }
-  },
-  {
-    "id": "ch02_014",
-    "type": "hide_character",
-    "character": "saori"
-  },
-  {
-    "id": "ch02_015",
-    "type": "change_expression",
-    "character": "mizuki",
-    "expression": "surprised"
-  },
-  {
-    "id": "ch02_016",
-    "type": "dialog",
-    "speaker": "mizuki",
-    "text": {
-      "ja": "誰！？"
-    }
-  },
-  {
-    "id": "ch02_017",
-    "type": "dialog",
-    "speaker": "unknown_man",
-    "text": {
-      "ja": "ここは部外者が立ち入る場所ではない...お前たちは何者だ？"
-    }
-  },
-  {
-    "id": "ch02_018",
-    "type": "show_character",
-    "character": "saori",
-    "position": "right",
-    "expression": "surprised"
-  },
-  {
-    "id": "ch02_019",
-    "type": "dialog",
-    "speaker": "saori",
-    "text": {
-      "ja": "私たちは探偵です。一条氏の行方を探しています。あなたは銀の黄昏会の関係者ですか？"
-    }
-  },
-  {
-    "id": "ch02_020",
-    "type": "dialog",
-    "speaker": "unknown_man",
-    "text": {
-      "ja": "一条...あの愚か者か。彼は真実を知りすぎた。そして、代償を払うことになった。"
-    }
-  },
-  {
-    "id": "ch02_021",
-    "type": "change_expression",
-    "character": "mizuki",
-    "expression": "normal"
-  },
-  {
-    "id": "ch02_022",
-    "type": "dialog",
-    "speaker": "mizuki",
-    "text": {
-      "ja": "代償？一条氏に何をしたの！彼は今どこにいるの！？"
-    }
-  },
-  {
-    "id": "ch02_023",
-    "type": "dialog",
-    "speaker": "unknown_man",
-    "text": {
-      "ja": "それを知りたければ、お前たちも『試練』を受けるがいい。真実を知る資格があるかどうか、試してやろう。"
-    }
-  },
-  {
-    "id": "ch02_024",
-    "type": "narration",
-    "text": {
-      "ja": "男はそう言うと、祭壇の奥へと消えていった。残されたみずきと沙織は、一条氏の行方を探すため、さらに奥へと進む決意を固めた。"
-    }
-  },
-  {
-    "id": "ch02_025",
-    "type": "narration",
-    "text": {
-      "ja": "祭壇の裏側に隠された扉を発見した二人は、慎重にそれを開けた。そこには、古い書物と遺物が並ぶ秘密の部屋があった。"
-    }
-  },
-  {
-    "id": "ch02_026",
-    "type": "change_expression",
-    "character": "saori",
-    "expression": "normal"
-  },
-  {
-    "id": "ch02_027",
-    "type": "dialog",
-    "speaker": "saori",
-    "text": {
-      "ja": "みずきさん、こちらに日記のようなものが...一条氏のものかもしれません。"
-    }
-  },
-  {
-    "id": "ch02_028",
-    "type": "change_expression",
-    "character": "mizuki",
-    "expression": "surprised"
-  },
-  {
-    "id": "ch02_029",
-    "type": "dialog",
-    "speaker": "mizuki",
-    "text": {
-      "ja": "見せて...『アザゼルの鍵を見つけた。これで真実に辿り着ける。しかし、代償は大きすぎるかもしれない』..."
-    }
-  },
-  {
-    "id": "ch02_030",
-    "type": "dialog",
-    "speaker": "mizuki",
-    "text": {
-      "ja": "一条氏は鍵を見つけたのね。でも、その後どうなったの？"
-    }
-  },
-  {
-    "id": "ch02_031",
-    "type": "change_expression",
-    "character": "saori",
-    "expression": "sad"
-  },
-  {
-    "id": "ch02_032",
-    "type": "dialog",
-    "speaker": "saori",
-    "text": {
-      "ja": "最後のページには...『銀の黄昏会の真の目的を知った。私はもう戻れない。瑠璃、すまない』と。"
-    }
-  },
-  {
-    "id": "ch02_033",
-    "type": "change_expression",
-    "character": "mizuki",
-    "expression": "sad"
-  },
-  {
-    "id": "ch02_034",
-    "type": "dialog",
-    "speaker": "mizuki",
-    "text": {
-      "ja": "一条氏...あなたは一体何を知ってしまったの？そして、今どこにいるの？"
-    }
-  },
-  {
-    "id": "ch02_035",
-    "type": "narration",
-    "text": {
-      "ja": "二人は日記を手に、さらなる手がかりを求めて調査を続けることにした。しかし、銀の黄昏会の真の目的とは何なのか。そして、一条氏は本当に無事なのか。謎は深まるばかりだった..."
-    }
-  },
-  {
-    "id": "ch02_036",
-    "type": "hide_all_characters"
-  },
-  {
-    "id": "ch02_037",
-    "type": "narration",
-    "text": {
-      "ja": "第二章 完"
-    }
-  }
-]
+  ]
+}
+
