@@ -1,5 +1,8 @@
 {
   "characters": {
+    "hasekawa": {
+      "normal": "res://assets/characters/hasekawa_normal.png"
+    },
     "mizuki": {
       "normal": "res://assets/characters/mizuki_standing_new.png",
       "surprised": "res://assets/characters/mizuki_surprised_new.png",
@@ -17,6 +20,8 @@
     }
   },
   "bg": {
+    "silver_twilight_assembly": "res://assets/backgrounds/silver_twilight_assembly.png",
+
     "detective_office_dusk": "res://assets/backgrounds/detective_office_dusk_v2.png",
     "living_room_crime_scene": "res://assets/backgrounds/living_room_crime_scene_v2.png",
     "rainy_neon_back_alley": "res://assets/backgrounds/rainy_neon_back_alley_v2.png",

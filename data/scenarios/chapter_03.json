@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "id": "chapter_03",
+  "lines": [
+    {
+      "id": "C03-0001",
+      "type": "narration",
+      "text": {
+        "ja": "みずきと沙織は、瑠璃から得た情報をもとに、旧市街の廃教会へと向かった。そこは『銀の黄昏会』の集会所として使われているという。"
+      }
+    },
+    {
+      "id": "C03-0002",
+      "type": "change_background",
+      "background": "silver_twilight_assembly"
+    },
+    {
+      "id": "C03-0003",
+      "type": "show_character",
+      "character": "mizuki",
+      "position": "left",
+      "expression": "normal"
+    },
+    {
+      "id": "C03-0004",
+      "type": "show_character",
+      "character": "saori",
+      "position": "right",
+      "expression": "normal"
+    },
+    {
+      "id": "C03-0005",
+      "type": "dialog",
+      "speaker": "mizuki",
+      "text": {
+        "ja": "ここが『銀の黄昏会』の集会所...随分と物々しい雰囲気ね。"
+      }
+    },
+    {
+      "id": "C03-0006",
+      "type": "dialog",
+      "speaker": "saori",
+      "text": {
+        "ja": "ええ。内部には多くの信者が集まっているようです。瑠璃さんも、この中に..."
+      }
+    },
+    {
+      "id": "C03-0007",
+      "type": "narration",
+      "text": {
+        "ja": "二人は信者に紛れて集会に潜入した。薄暗いホールの中央には祭壇があり、奇妙なシンボルが描かれている。そして、壇上には見覚えのある人物が立っていた。"
+      }
+    },
+    {
+      "id": "C03-0008",
+      "type": "show_character",
+      "character": "ruri",
+      "position": "center",
+      "expression": "normal"
+    },
+    {
+      "id": "C03-0009",
+      "type": "dialog",
+      "speaker": "mizuki",
+      "text": {
+        "ja": "瑠璃...！あんなところで何をしているの？"
+      }
+    },
+    {
+      "id": "C03-0010",
+      "type": "change_expression",
+      "character": "ruri",
+      "expression": "surprised"
+    },
+    {
+      "id": "C03-0011",
+      "type": "dialog",
+      "speaker": "ruri",
+      "text": {
+        "ja": "みずきさん、沙織さん...なぜここに？ここはあなたたちが来るべき場所ではありません。"
+      }
+    },
+    {
+      "id": "C03-0012",
+      "type": "dialog",
+      "speaker": "saori",
+      "text": {
+        "ja": "瑠璃さん、一体どうしたんですか？まるで別人のようです。"
+      }
+    },
+    {
+      "id": "C03-0013",
+      "type": "narration",
+      "text": {
+        "ja": "瑠璃の目は虚ろで、教団の思想に深く染まっていることが見て取れた。彼女は壇上から、教団の教義を熱心に語り始めた。"
+      }
+    },
+    {
+      "id": "C03-0014",
+      "type": "dialog",
+      "speaker": "ruri",
+      "text": {
+        "ja": "この世は偽りに満ちています。真の知識、『アザゼルの鍵』だけが私たちを救うのです。"
+      }
+    },
+    {
+      "id": "C03-0015",
+      "type": "dialog",
+      "speaker": "mizuki",
+      "text": {
+        "ja": "瑠璃、目を覚まして！それは洗脳よ！"
+      }
+    },
+    {
+      "id": "C03-0016",
+      "type": "narration",
+      "text": {
+        "ja": "その時、壇上の奥から一人の男が現れた。その顔を見たみずきと沙織は、驚きを隠せない。"
+      }
+    },
+    {
+      "id": "C03-0017",
+      "type": "hide_character",
+      "character": "ruri"
+    },
+    {
+      "id": "C03-0018",
+      "type": "show_character",
+      "character": "hasekawa",
+      "position": "center",
+      "expression": "normal"
+    },
+    {
+      "id": "C03-0019",
+      "type": "dialog",
+      "speaker": "hasekawa",
+      "text": {
+        "ja": "まさか、こんなところまで来るとはな、探偵さん。"
+      }
+    },
+    {
+      "id": "C03-0020",
+      "type": "dialog",
+      "speaker": "mizuki",
+      "text": {
+        "ja": "長谷川...！あなたが教団の幹部だったなんて！"
+      }
+    },
+    {
+      "id": "C03-0021",
+      "type": "dialog",
+      "speaker": "hasekawa",
+      "text": {
+        "ja": "フフフ...すべては計画通り。お前たち探偵も、この儀式に必要な駒に過ぎない。"
+      }
+    },
+    {
+      "id": "C03-0022",
+      "type": "narration",
+      "text": {
+        "ja": "長谷川は教団の真の目的が『アザゼルの鍵』を使った危険な儀式であることを明かした。そして、みずきと沙織がこの集会に誘い込まれたのは、儀式のための罠だったのだ。"
+      }
+    },
+    {
+      "id": "C03-0023",
+      "type": "change_expression",
+      "character": "mizuki",
+      "expression": "surprised"
+    },
+    {
+      "id": "C03-0024",
+      "type": "dialog",
+      "speaker": "mizuki",
+      "text": {
+        "ja": "罠だと...！？"
+      }
+    },
+    {
+      "id": "C03-0025",
+      "type": "change_expression",
+      "character": "saori",
+      "expression": "sad"
+    },
+    {
+      "id": "C03-0026",
+      "type": "dialog",
+      "speaker": "saori",
+      "text": {
+        "ja": "そんな...私たちは利用されていたのですね。"
+      }
+    },
+    {
+      "id": "C03-0027",
+      "type": "narration",
+      "text": {
+        "ja": "集会所の扉が閉ざされ、二人は教団の信者たちに取り囲まれた。絶体絶命の状況の中、みずきと沙織は互いに顔を見合わせた。"
+      }
+    },
+    {
+      "id": "C03-0028",
+      "type": "hide_all_characters"
+    },
+    {
+      "id": "C03-0029",
+      "type": "narration",
+      "text": {
+        "ja": "第三章 完"
+      }
+    }
+  ]
+}
