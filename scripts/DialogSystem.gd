@@ -1,4 +1,4 @@
-﻿extends Control
+extends Control
 
 # How to test:
 # - Toggle `bypass_typewriter` below to true for immediate text; ensure narration still shows.
@@ -294,7 +294,7 @@ func _await_frames(frame_count: int) -> void:
 func _ensure_topmost() -> void:
 	z_index = max(z_index, 1000)
 	dialog_box.z_index = 1000
-	dialog_box.raise()
+	dialog_box.move_to_front()
 	var canvas_layer := get_parent()
 	if canvas_layer is CanvasLayer:
 		canvas_layer.layer = max(canvas_layer.layer, 100)
@@ -322,5 +322,3 @@ func print_debug_info(tag: String) -> void:
 	parts.append("parent_size=%s parent_flags_h=%d parent_flags_v=%d" % [str(parent_size), parent_flags_h, parent_flags_v])
 	parts.append("layer=%d z_index=%d inside_tree=%s" % [layer_value, z_index, str(is_inside_tree())])
 	print(" | ".join(parts))
-
-
