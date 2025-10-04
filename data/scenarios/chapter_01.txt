@@ -1,0 +1,77 @@
+# 第一章: 銀の黄昏の影
+
+## シーン1: 探偵事務所 - 翌朝
+
+NARRATION: 一条瑠璃からの依頼を受けた翌朝。みずきと沙織は、銀の黄昏会について調査を開始した。
+
+SHOW_CHARACTER: mizuki, center, normal
+DIALOG: みずき: 「沙織、昨夜調べた『銀の黄昏会』の情報をまとめてくれる？」
+
+SHOW_CHARACTER: saori, right, normal
+DIALOG: 沙織: 「はい。この団体は約10年前に設立され、表向きは古代文明の研究を目的とした学術団体です。」
+
+DIALOG: 沙織: 「しかし、実態は不明な点が多く、一部では新興宗教団体とも噂されています。」
+
+CHANGE_EXPRESSION: mizuki, surprised
+DIALOG: みずき: 「10年前...それほど歴史のある団体なのね。一条氏が関わるようになったのは最近だというのに。」
+
+DIALOG: saori: 「ええ。そして、この団体が探しているとされる『アザゼルの鍵』ですが...」
+
+CHANGE_EXPRESSION: saori, sad
+DIALOG: 沙織: 「古代メソポタミア文明に関連する遺物で、伝説では『禁断の知識への扉を開く鍵』とされています。」
+
+DIALOG: みずき: 「禁断の知識...なんとも胡散臭い響きね。でも、一条氏のような実業家がそんなものに夢中になるとは。」
+
+## シーン2: リビングルーム犯罪現場 - 調査
+
+CHANGE_BACKGROUND: living_room_crime_scene
+NARRATION: みずきと沙織は、一条氏が最後に目撃された場所へと向かった。そこは、奇妙な痕跡が残された現場だった。
+
+HIDE_CHARACTER: saori
+CHANGE_EXPRESSION: mizuki, normal
+DIALOG: みずき: 「ここが一条氏が最後に目撃された場所...確かに何かあったようね。」
+
+SHOW_CHARACTER: saori, right, surprised
+DIALOG: 沙織: 「みずきさん、こちらをご覧ください。床に奇妙な文様が描かれています。」
+
+DIALOG: みずき: 「これは...古代の魔法陣のようなものかしら。銀の黄昏会の儀式に使われたのかもしれない。」
+
+CHANGE_EXPRESSION: saori, normal
+DIALOG: 沙織: 「そして、この血痕...人のものでしょうか？」
+
+CHANGE_EXPRESSION: mizuki, sad
+DIALOG: みずき: 「分析が必要ね。でも、量からして致命傷ではなさそう。一条氏が無事である可能性はまだある。」
+
+## シーン3: 深夜のダイナー - 瑠璃との再会
+
+CHANGE_BACKGROUND: late_night_diner
+NARRATION: 夜。みずきと沙織は、瑠璃から新たな情報を得るため、深夜のダイナーで待ち合わせをした。
+
+HIDE_CHARACTER: saori
+SHOW_CHARACTER: ruri, center, sad
+DIALOG: 瑠璃: 「お二人とも...調査の進展はありましたか？」
+
+SHOW_CHARACTER: mizuki, left, normal
+DIALOG: みずき: 「ええ。あなたのお父様が最後に目撃された現場を調べました。そこには儀式の痕跡がありました。」
+
+SHOW_CHARACTER: saori, right, normal
+DIALOG: 沙織: 「瑠璃さん、お父様は最近、何か変わった行動をされていませんでしたか？例えば、特定の場所に頻繁に出かけるとか...」
+
+CHANGE_EXPRESSION: ruri, normal
+DIALOG: 瑠璃: 「そういえば...父は最近、旧市街の廃教会によく出かけていました。『そこに真実がある』と言って。」
+
+CHANGE_EXPRESSION: mizuki, surprised
+DIALOG: みずき: 「廃教会...それは銀の黄昏会の本拠地かもしれない。」
+
+DIALOG: 沙織: 「危険かもしれません。警察に連絡を...」
+
+CHANGE_EXPRESSION: mizuki, normal
+DIALOG: みずき: 「いいえ、まずは私たちで偵察しましょう。警察が動けば、相手も警戒して証拠を隠滅するかもしれない。」
+
+CHANGE_EXPRESSION: ruri, sad
+DIALOG: 瑠璃: 「お願いします...父を、どうか無事に連れ戻してください。」
+
+NARRATION: こうして、みずきと沙織は銀の黄昏会の本拠地とされる廃教会へと向かう決意を固めた。しかし、そこで彼女たちを待ち受けていたのは、想像を絶する恐怖だった...
+
+HIDE_ALL_CHARACTERS
+NARRATION: 第一章 完

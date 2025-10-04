@@ -1,18 +1,18 @@
 extends Node
 
-# シナリオ管理システム
-class_name ScenarioManager
+# シナリオ管理システム（拡張版）
+class_name ScenarioManagerExtended
 
 # シナリオデータ
 var scenario_data: Dictionary = {}
 var current_scenario: Array = []
 var current_index: int = 0
 
-# 序章のサンプルシナリオ
-var prologue_scenario: Array = [
+# 第一章のシナリオ
+var chapter_01_scenario: Array = [
 	{
 		"type": "narration",
-		"text": "夕暮れ時の探偵事務所。窓から差し込む夕日が、室内を銀色に染めている。"
+		"text": "一条瑠璃からの依頼を受けた翌朝。みずきと沙織は、銀の黄昏会について調査を開始した。"
 	},
 	{
 		"type": "show_character",
@@ -23,57 +23,74 @@ var prologue_scenario: Array = [
 	{
 		"type": "dialog",
 		"speaker": "みずき",
-		"text": "今日も一日、何も事件らしい事件はなかった...。平和なのは良いことだけど、少し退屈ね。"
+		"text": "沙織、昨夜調べた『銀の黄昏会』の情報をまとめてくれる？"
 	},
 	{
 		"type": "show_character",
 		"character": "saori",
 		"position": "right",
-		"expression": "smile"
-	},
-	{
-		"type": "dialog",
-		"speaker": "沙織",
-		"text": "みずきさん、お疲れ様でした。お茶をお入れしますね。少し甘めの紅茶はいかがですか？"
-	},
-	{
-		"type": "dialog",
-		"speaker": "みずき",
-		"text": "あら、気が利くわね、沙織。ありがとう。君がいてくれて本当に助かるよ。"
-	},
-	{
-		"type": "change_expression",
-		"character": "saori",
 		"expression": "normal"
 	},
 	{
 		"type": "dialog",
 		"speaker": "沙織",
-		"text": "そんな...私こそ、みずきさんに探偵のいろはを教えていただいて。毎日が刺激的です。"
-	},
-	{
-		"type": "dialog",
-		"speaker": "みずき",
-		"text": "ふふ、そう言ってもらえると嬉しいわ。でも、たまにはゆっくりしたい日もあるでしょう？"
-	},
-	{
-		"type": "change_expression",
-		"character": "saori",
-		"expression": "smile"
+		"text": "はい。この団体は約10年前に設立され、表向きは古代文明の研究を目的とした学術団体です。"
 	},
 	{
 		"type": "dialog",
 		"speaker": "沙織",
-		"text": "ええ、そうですね。でも、みずきさんと一緒なら、どんな日でも楽しいです。"
+		"text": "しかし、実態は不明な点が多く、一部では新興宗教団体とも噂されています。"
 	},
 	{
-		"type": "narration",
-		"text": "穏やかな時間が流れる探偵事務所。しかし、その平和は突然の来訪者によって破られる。"
+		"type": "change_expression",
+		"character": "mizuki",
+		"expression": "surprised"
 	},
 	{
 		"type": "dialog",
 		"speaker": "みずき",
-		"text": "あら、こんな時間に？どうぞ、開いています。"
+		"text": "10年前...それほど歴史のある団体なのね。一条氏が関わるようになったのは最近だというのに。"
+	},
+	{
+		"type": "change_background",
+		"background": "living_room_crime_scene"
+	},
+	{
+		"type": "narration",
+		"text": "みずきと沙織は、一条氏が最後に目撃された場所へと向かった。そこは、奇妙な痕跡が残された現場だった。"
+	},
+	{
+		"type": "hide_character",
+		"character": "saori"
+	},
+	{
+		"type": "change_expression",
+		"character": "mizuki",
+		"expression": "normal"
+	},
+	{
+		"type": "dialog",
+		"speaker": "みずき",
+		"text": "ここが一条氏が最後に目撃された場所...確かに何かあったようね。"
+	},
+	{
+		"type": "show_character",
+		"character": "saori",
+		"position": "right",
+		"expression": "surprised"
+	},
+	{
+		"type": "dialog",
+		"speaker": "沙織",
+		"text": "みずきさん、こちらをご覧ください。床に奇妙な文様が描かれています。"
+	},
+	{
+		"type": "change_background",
+		"background": "late_night_diner"
+	},
+	{
+		"type": "narration",
+		"text": "夜。みずきと沙織は、瑠璃から新たな情報を得るため、深夜のダイナーで待ち合わせをした。"
 	},
 	{
 		"type": "hide_character",
@@ -82,175 +99,127 @@ var prologue_scenario: Array = [
 	{
 		"type": "show_character",
 		"character": "ruri",
-		"position": "left",
+		"position": "center",
 		"expression": "sad"
 	},
 	{
 		"type": "dialog",
 		"speaker": "瑠璃",
-		"text": "失礼いたします...一条瑠璃と申します。"
-	},
-	{
-		"type": "change_expression",
-		"character": "mizuki",
-		"expression": "surprised"
-	},
-	{
-		"type": "dialog",
-		"speaker": "みずき",
-		"text": "一条...まさか、あの財閥の一条家のご令嬢が、こんなところに？"
-	},
-	{
-		"type": "dialog",
-		"speaker": "瑠璃",
-		"text": "はい...お恥ずかしながら。お二人に、どうしてもお願いがあって参りました。"
+		"text": "お二人とも...調査の進展はありましたか？"
 	},
 	{
 		"type": "show_character",
-		"character": "saori",
-		"position": "right",
-		"expression": "normal"
-	},
-	{
-		"type": "dialog",
-		"speaker": "沙織",
-		"text": "どのようなご依頼でしょうか？わたくしどもでお力になれることがあれば。"
-	},
-	{
-		"type": "change_expression",
-		"character": "ruri",
-		"expression": "sad"
-	},
-	{
-		"type": "dialog",
-		"speaker": "瑠璃",
-		"text": "私の父が...一週間前から行方不明になってしまったのです。"
-	},
-	{
-		"type": "change_expression",
 		"character": "mizuki",
+		"position": "left",
 		"expression": "normal"
 	},
 	{
 		"type": "dialog",
 		"speaker": "みずき",
-		"text": "行方不明...警察には届けを？"
-	},
-	{
-		"type": "dialog",
-		"speaker": "瑠璃",
-		"text": "それが...父は最近、『銀の黄昏会』という怪しげな宗教団体に関わっていたようで..."
-	},
-	{
-		"type": "dialog",
-		"speaker": "瑠璃",
-		"text": "警察に相談しても、まともに取り合ってもらえません。財閥の体面を気にして、事を荒立てたくないという思惑もあるようです。"
-	},
-	{
-		"type": "change_expression",
-		"character": "saori",
-		"expression": "surprised"
-	},
-	{
-		"type": "dialog",
-		"speaker": "沙織",
-		"text": "宗教団体...しかも財閥が絡むとなると、確かに複雑な問題ですね。"
-	},
-	{
-		"type": "dialog",
-		"speaker": "みずき",
-		"text": "詳しくお聞かせください。いつ頃から、お父様の様子がおかしくなったのですか？そして、その『銀の黄昏会』とは？"
-	},
-	{
-		"type": "change_expression",
-		"character": "ruri",
-		"expression": "normal"
-	},
-	{
-		"type": "dialog",
-		"speaker": "瑠璃",
-		"text": "三ヶ月ほど前からです。最初は古美術品の収集が趣味だった父が、ある日を境に『アザゼルの鍵』という古い遺物を探し始めたのです。"
-	},
-	{
-		"type": "change_expression",
-		"character": "mizuki",
-		"expression": "surprised"
-	},
-	{
-		"type": "dialog",
-		"speaker": "みずき",
-		"text": "アザゼルの鍵...？それはまた、物騒な響きですね。"
-	},
-	{
-		"type": "dialog",
-		"speaker": "瑠璃",
-		"text": "その鍵を探すうちに、父は『銀の黄昏会』という団体と接触を持つようになり、急速に傾倒していきました。"
-	},
-	{
-		"type": "dialog",
-		"speaker": "瑠璃",
-		"text": "最後に父を見たのは一週間前です。『真実を知った』と言って、夜の闇に消えていきました。"
-	},
-	{
-		"type": "change_expression",
-		"character": "saori",
-		"expression": "sad"
-	},
-	{
-		"type": "dialog",
-		"speaker": "沙織",
-		"text": "それは...さぞご心配でしょう。お一人で抱え込まず、わたくしどもにお任せください。"
-	},
-	{
-		"type": "change_expression",
-		"character": "ruri",
-		"expression": "sad"
-	},
-	{
-		"type": "dialog",
-		"speaker": "瑠璃",
-		"text": "はい...どうか、父を見つけてください。お礼はいくらでも...。このままでは、父が危険な目に遭うかもしれません。"
-	},
-	{
-		"type": "change_expression",
-		"character": "mizuki",
-		"expression": "normal"
-	},
-	{
-		"type": "dialog",
-		"speaker": "みずき",
-		"text": "お礼の心配はいりません。お困りの方を放っておけないのが、探偵の性分ですから。それに...『アザゼルの鍵』と『銀の黄昏会』。興味深い響きだわ。"
-	},
-	{
-		"type": "change_expression",
-		"character": "saori",
-		"expression": "smile"
-	},
-	{
-		"type": "dialog",
-		"speaker": "沙織",
-		"text": "みずきさんの言う通りです。私たちにお任せください。必ず、お父様を見つけ出します。"
-	},
-	{
-		"type": "change_expression",
-		"character": "ruri",
-		"expression": "smile"
-	},
-	{
-		"type": "dialog",
-		"speaker": "瑠璃",
-		"text": "ありがとうございます...本当に、ありがとうございます。これで、少しだけ希望が持てました。"
+		"text": "ええ。あなたのお父様が最後に目撃された現場を調べました。そこには儀式の痕跡がありました。"
 	},
 	{
 		"type": "narration",
-		"text": "こうして、私たちの新たな事件が始まった。一条財閥の令嬢からの依頼。それは、銀の黄昏に包まれた都市の裏側で蠢く、恐ろしい真実への第一歩を踏み出した瞬間だった...。"
+		"text": "こうして、みずきと沙織は銀の黄昏会の本拠地とされる廃教会へと向かう決意を固めた。"
 	},
 	{
 		"type": "hide_all_characters"
 	},
 	{
 		"type": "narration",
-		"text": "To be continued..."
+		"text": "第一章 完"
+	}
+]
+
+# 第二章のシナリオ
+var chapter_02_scenario: Array = [
+	{
+		"type": "change_background",
+		"background": "mysterious_assembly_hall"
+	},
+	{
+		"type": "narration",
+		"text": "深夜。みずきと沙織は、旧市街の廃教会へと潜入した。建物の内部は薄暗く、不気味な雰囲気に包まれていた。"
+	},
+	{
+		"type": "show_character",
+		"character": "mizuki",
+		"position": "left",
+		"expression": "normal"
+	},
+	{
+		"type": "dialog",
+		"speaker": "みずき",
+		"text": "静かに...誰かいるかもしれない。"
+	},
+	{
+		"type": "show_character",
+		"character": "saori",
+		"position": "right",
+		"expression": "surprised"
+	},
+	{
+		"type": "dialog",
+		"speaker": "沙織",
+		"text": "みずきさん、あちらを...ろうそくの灯りが見えます。"
+	},
+	{
+		"type": "narration",
+		"text": "二人は慎重に奥へと進む。そこには、奇妙な祭壇と、壁一面に描かれた古代文字が広がっていた。"
+	},
+	{
+		"type": "change_expression",
+		"character": "mizuki",
+		"expression": "surprised"
+	},
+	{
+		"type": "dialog",
+		"speaker": "みずき",
+		"text": "これは...まるで儀式の場所ね。ここで一体何が行われていたの？"
+	},
+	{
+		"type": "dialog",
+		"speaker": "沙織",
+		"text": "この文字...古代シュメール語のようです。『アザゼルの鍵を用いて、禁断の扉を開く』と書かれています。"
+	},
+	{
+		"type": "change_expression",
+		"character": "mizuki",
+		"expression": "sad"
+	},
+	{
+		"type": "dialog",
+		"speaker": "みずき",
+		"text": "やはり、この団体は本気でその鍵を探しているのね。そして一条氏も、その儀式に巻き込まれた可能性が高い。"
+	},
+	{
+		"type": "narration",
+		"text": "その時、背後から足音が聞こえた。二人は振り返ると、そこには黒いローブを纏った男が立っていた。"
+	},
+	{
+		"type": "hide_character",
+		"character": "saori"
+	},
+	{
+		"type": "change_expression",
+		"character": "mizuki",
+		"expression": "surprised"
+	},
+	{
+		"type": "dialog",
+		"speaker": "みずき",
+		"text": "誰！？"
+	},
+	{
+		"type": "narration",
+		"text": "二人は日記を手に、さらなる手がかりを求めて調査を続けることにした。しかし、銀の黄昏会の真の目的とは何なのか。そして、一条氏は本当に無事なのか。謎は深まるばかりだった..."
+	},
+	{
+		"type": "hide_all_characters"
+	},
+	{
+		"type": "narration",
+		"text": "第二章 完"
 	}
 ]
 
@@ -261,7 +230,8 @@ func _ready():
 
 # シナリオデータの読み込み
 func load_scenario_data():
-	scenario_data["prologue"] = prologue_scenario
+	scenario_data["chapter_01"] = chapter_01_scenario
+	scenario_data["chapter_02"] = chapter_02_scenario
 
 # シナリオを開始
 func start_scenario(scenario_name: String):
@@ -276,34 +246,17 @@ func start_scenario(scenario_name: String):
 func execute_next_command():
 	if current_index >= current_scenario.size():
 		print("Scenario finished")
-		GameManager.instance.change_state(GameManager.GameState.MENU) # シナリオ終了時にメニュー状態に戻す
 		return
 	
 	var command = current_scenario[current_index]
 	current_index += 1
 	
-	push_error("Executing command: " + str(command)) # コマンド実行ログをエラーとして出力
 	scenario_command_executed.emit(command)
 
 # シナリオを進める
 func advance_scenario():
 	execute_next_command()
 
-# 現在のシナリオ位置を取得
-func get_current_position() -> Dictionary:
-	return {
-		"scenario": current_scenario,
-		"index": current_index
-	}
-
-# シナリオ位置を設定
-func set_scenario_position(scenario: Array, index: int):
-	current_scenario = scenario
-	current_index = index
-
-
-
 # 次のコマンドがあるか確認
 func has_next_command() -> bool:
 	return current_index < current_scenario.size()
-

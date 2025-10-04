@@ -1,0 +1,67 @@
+# 第二章: 廃教会の秘密
+
+## シーン1: 廃教会への潜入 - 夜
+
+CHANGE_BACKGROUND: mysterious_assembly_hall
+NARRATION: 深夜。みずきと沙織は、旧市街の廃教会へと潜入した。建物の内部は薄暗く、不気味な雰囲気に包まれていた。
+
+SHOW_CHARACTER: mizuki, left, normal
+DIALOG: みずき: 「静かに...誰かいるかもしれない。」
+
+SHOW_CHARACTER: saori, right, surprised
+DIALOG: 沙織: 「みずきさん、あちらを...ろうそくの灯りが見えます。」
+
+NARRATION: 二人は慎重に奥へと進む。そこには、奇妙な祭壇と、壁一面に描かれた古代文字が広がっていた。
+
+CHANGE_EXPRESSION: mizuki, surprised
+DIALOG: みずき: 「これは...まるで儀式の場所ね。ここで一体何が行われていたの？」
+
+DIALOG: saori: 「この文字...古代シュメール語のようです。『アザゼルの鍵を用いて、禁断の扉を開く』と書かれています。」
+
+CHANGE_EXPRESSION: mizuki, sad
+DIALOG: みずき: 「やはり、この団体は本気でその鍵を探しているのね。そして一条氏も、その儀式に巻き込まれた可能性が高い。」
+
+## シーン2: 謎の男との遭遇
+
+NARRATION: その時、背後から足音が聞こえた。二人は振り返ると、そこには黒いローブを纏った男が立っていた。
+
+HIDE_CHARACTER: saori
+CHANGE_EXPRESSION: mizuki, surprised
+DIALOG: みずき: 「誰！？」
+
+DIALOG: 謎の男: 「ここは部外者が立ち入る場所ではない...お前たちは何者だ？」
+
+SHOW_CHARACTER: saori, right, surprised
+DIALOG: 沙織: 「私たちは探偵です。一条氏の行方を探しています。あなたは銀の黄昏会の関係者ですか？」
+
+DIALOG: 謎の男: 「一条...あの愚か者か。彼は真実を知りすぎた。そして、代償を払うことになった。」
+
+CHANGE_EXPRESSION: mizuki, normal
+DIALOG: みずき: 「代償？一条氏に何をしたの！彼は今どこにいるの！？」
+
+DIALOG: 謎の男: 「それを知りたければ、お前たちも『試練』を受けるがいい。真実を知る資格があるかどうか、試してやろう。」
+
+NARRATION: 男はそう言うと、祭壇の奥へと消えていった。残されたみずきと沙織は、一条氏の行方を探すため、さらに奥へと進む決意を固めた。
+
+## シーン3: 隠された部屋の発見
+
+NARRATION: 祭壇の裏側に隠された扉を発見した二人は、慎重にそれを開けた。そこには、古い書物と遺物が並ぶ秘密の部屋があった。
+
+CHANGE_EXPRESSION: saori, normal
+DIALOG: 沙織: 「みずきさん、こちらに日記のようなものが...一条氏のものかもしれません。」
+
+CHANGE_EXPRESSION: mizuki, surprised
+DIALOG: みずき: 「見せて...『アザゼルの鍵を見つけた。これで真実に辿り着ける。しかし、代償は大きすぎるかもしれない』...」
+
+DIALOG: みずき: 「一条氏は鍵を見つけたのね。でも、その後どうなったの？」
+
+CHANGE_EXPRESSION: saori, sad
+DIALOG: 沙織: 「最後のページには...『銀の黄昏会の真の目的を知った。私はもう戻れない。瑠璃、すまない』と。」
+
+CHANGE_EXPRESSION: mizuki, sad
+DIALOG: みずき: 「一条氏...あなたは一体何を知ってしまったの？そして、今どこにいるの？」
+
+NARRATION: 二人は日記を手に、さらなる手がかりを求めて調査を続けることにした。しかし、銀の黄昏会の真の目的とは何なのか。そして、一条氏は本当に無事なのか。謎は深まるばかりだった...
+
+HIDE_ALL_CHARACTERS
+NARRATION: 第二章 完
