@@ -1,0 +1,317 @@
+[
+  {
+    "id": "ch01_001",
+    "type": "narration",
+    "text": {
+      "ja": "一条瑠璃からの依頼を受けた翌朝。みずきと沙織は、銀の黄昏会について調査を開始した。"
+    }
+  },
+  {
+    "id": "ch01_002",
+    "type": "show_character",
+    "character": "mizuki",
+    "position": "center",
+    "expression": "normal"
+  },
+  {
+    "id": "ch01_003",
+    "type": "dialog",
+    "speaker": "mizuki",
+    "text": {
+      "ja": "沙織、昨夜調べた『銀の黄昏会』の情報をまとめてくれる？"
+    }
+  },
+  {
+    "id": "ch01_004",
+    "type": "show_character",
+    "character": "saori",
+    "position": "right",
+    "expression": "normal"
+  },
+  {
+    "id": "ch01_005",
+    "type": "dialog",
+    "speaker": "saori",
+    "text": {
+      "ja": "はい。この団体は約10年前に設立され、表向きは古代文明の研究を目的とした学術団体です。"
+    }
+  },
+  {
+    "id": "ch01_006",
+    "type": "dialog",
+    "speaker": "saori",
+    "text": {
+      "ja": "しかし、実態は不明な点が多く、一部では新興宗教団体とも噂されています。"
+    }
+  },
+  {
+    "id": "ch01_007",
+    "type": "change_expression",
+    "character": "mizuki",
+    "expression": "surprised"
+  },
+  {
+    "id": "ch01_008",
+    "type": "dialog",
+    "speaker": "mizuki",
+    "text": {
+      "ja": "10年前...それほど歴史のある団体なのね。一条氏が関わるようになったのは最近だというのに。"
+    }
+  },
+  {
+    "id": "ch01_009",
+    "type": "dialog",
+    "speaker": "saori",
+    "text": {
+      "ja": "ええ。そして、この団体が探しているとされる『アザゼルの鍵』ですが..."
+    }
+  },
+  {
+    "id": "ch01_010",
+    "type": "change_expression",
+    "character": "saori",
+    "expression": "sad"
+  },
+  {
+    "id": "ch01_011",
+    "type": "dialog",
+    "speaker": "saori",
+    "text": {
+      "ja": "古代メソポタミア文明に関連する遺物で、伝説では『禁断の知識への扉を開く鍵』とされています。"
+    }
+  },
+  {
+    "id": "ch01_012",
+    "type": "dialog",
+    "speaker": "mizuki",
+    "text": {
+      "ja": "禁断の知識...なんとも胡散臭い響きね。でも、一条氏のような実業家がそんなものに夢中になるとは。"
+    }
+  },
+  {
+    "id": "ch01_013",
+    "type": "change_background",
+    "background": "living_room_crime_scene"
+  },
+  {
+    "id": "ch01_014",
+    "type": "narration",
+    "text": {
+      "ja": "みずきと沙織は、一条氏が最後に目撃された場所へと向かった。そこは、奇妙な痕跡が残された現場だった。"
+    }
+  },
+  {
+    "id": "ch01_015",
+    "type": "hide_character",
+    "character": "saori"
+  },
+  {
+    "id": "ch01_016",
+    "type": "change_expression",
+    "character": "mizuki",
+    "expression": "normal"
+  },
+  {
+    "id": "ch01_017",
+    "type": "dialog",
+    "speaker": "mizuki",
+    "text": {
+      "ja": "ここが一条氏が最後に目撃された場所...確かに何かあったようね。"
+    }
+  },
+  {
+    "id": "ch01_018",
+    "type": "show_character",
+    "character": "saori",
+    "position": "right",
+    "expression": "surprised"
+  },
+  {
+    "id": "ch01_019",
+    "type": "dialog",
+    "speaker": "saori",
+    "text": {
+      "ja": "みずきさん、こちらをご覧ください。床に奇妙な文様が描かれています。"
+    }
+  },
+  {
+    "id": "ch01_020",
+    "type": "dialog",
+    "speaker": "mizuki",
+    "text": {
+      "ja": "これは...古代の魔法陣のようなものかしら。銀の黄昏会の儀式に使われたのかもしれない。"
+    }
+  },
+  {
+    "id": "ch01_021",
+    "type": "change_expression",
+    "character": "saori",
+    "expression": "normal"
+  },
+  {
+    "id": "ch01_022",
+    "type": "dialog",
+    "speaker": "saori",
+    "text": {
+      "ja": "そして、この血痕...人のものでしょうか？"
+    }
+  },
+  {
+    "id": "ch01_023",
+    "type": "change_expression",
+    "character": "mizuki",
+    "expression": "sad"
+  },
+  {
+    "id": "ch01_024",
+    "type": "dialog",
+    "speaker": "mizuki",
+    "text": {
+      "ja": "分析が必要ね。でも、量からして致命傷ではなさそう。一条氏が無事である可能性はまだある。"
+    }
+  },
+  {
+    "id": "ch01_025",
+    "type": "change_background",
+    "background": "late_night_diner"
+  },
+  {
+    "id": "ch01_026",
+    "type": "narration",
+    "text": {
+      "ja": "夜。みずきと沙織は、瑠璃から新たな情報を得るため、深夜のダイナーで待ち合わせをした。"
+    }
+  },
+  {
+    "id": "ch01_027",
+    "type": "hide_character",
+    "character": "saori"
+  },
+  {
+    "id": "ch01_028",
+    "type": "show_character",
+    "character": "ruri",
+    "position": "center",
+    "expression": "sad"
+  },
+  {
+    "id": "ch01_029",
+    "type": "dialog",
+    "speaker": "ruri",
+    "text": {
+      "ja": "お二人とも...調査の進展はありましたか？"
+    }
+  },
+  {
+    "id": "ch01_030",
+    "type": "show_character",
+    "character": "mizuki",
+    "position": "left",
+    "expression": "normal"
+  },
+  {
+    "id": "ch01_031",
+    "type": "dialog",
+    "speaker": "mizuki",
+    "text": {
+      "ja": "ええ。あなたのお父様が最後に目撃された現場を調べました。そこには儀式の痕跡がありました。"
+    }
+  },
+  {
+    "id": "ch01_032",
+    "type": "show_character",
+    "character": "saori",
+    "position": "right",
+    "expression": "normal"
+  },
+  {
+    "id": "ch01_033",
+    "type": "dialog",
+    "speaker": "saori",
+    "text": {
+      "ja": "瑠璃さん、お父様は最近、何か変わった行動をされていませんでしたか？例えば、特定の場所に頻繁に出かけるとか..."
+    }
+  },
+  {
+    "id": "ch01_034",
+    "type": "change_expression",
+    "character": "ruri",
+    "expression": "normal"
+  },
+  {
+    "id": "ch01_035",
+    "type": "dialog",
+    "speaker": "ruri",
+    "text": {
+      "ja": "そういえば...父は最近、旧市街の廃教会によく出かけていました。『そこに真実がある』と言って。"
+    }
+  },
+  {
+    "id": "ch01_036",
+    "type": "change_expression",
+    "character": "mizuki",
+    "expression": "surprised"
+  },
+  {
+    "id": "ch01_037",
+    "type": "dialog",
+    "speaker": "mizuki",
+    "text": {
+      "ja": "廃教会...それは銀の黄昏会の本拠地かもしれない。"
+    }
+  },
+  {
+    "id": "ch01_038",
+    "type": "dialog",
+    "speaker": "saori",
+    "text": {
+      "ja": "危険かもしれません。警察に連絡を..."
+    }
+  },
+  {
+    "id": "ch01_039",
+    "type": "change_expression",
+    "character": "mizuki",
+    "expression": "normal"
+  },
+  {
+    "id": "ch01_040",
+    "type": "dialog",
+    "speaker": "mizuki",
+    "text": {
+      "ja": "いいえ、まずは私たちで偵察しましょう。警察が動けば、相手も警戒して証拠を隠滅するかもしれない。"
+    }
+  },
+  {
+    "id": "ch01_041",
+    "type": "change_expression",
+    "character": "ruri",
+    "expression": "sad"
+  },
+  {
+    "id": "ch01_042",
+    "type": "dialog",
+    "speaker": "ruri",
+    "text": {
+      "ja": "お願いします...父を、どうか無事に連れ戻してください。"
+    }
+  },
+  {
+    "id": "ch01_043",
+    "type": "narration",
+    "text": {
+      "ja": "こうして、みずきと沙織は銀の黄昏会の本拠地とされる廃教会へと向かう決意を固めた。しかし、そこで彼女たちを待ち受けていたのは、想像を絶する恐怖だった..."
+    }
+  },
+  {
+    "id": "ch01_044",
+    "type": "hide_all_characters"
+  },
+  {
+    "id": "ch01_045",
+    "type": "narration",
+    "text": {
+      "ja": "第一章 完"
+    }
+  }
+]

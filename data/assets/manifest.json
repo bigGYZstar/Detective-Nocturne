@@ -1,0 +1,31 @@
+{
+  "characters": {
+    "mizuki": {
+      "normal": "res://assets/characters/mizuki_standing_new.png",
+      "surprised": "res://assets/characters/mizuki_surprised_new.png",
+      "sad": "res://assets/characters/mizuki_sad_new.png"
+    },
+    "saori": {
+      "normal": "res://assets/characters/saori_standing_new.png",
+      "surprised": "res://assets/characters/saori_surprised_new.png",
+      "sad": "res://assets/characters/saori_sad_new.png"
+    },
+    "ruri": {
+      "normal": "res://assets/characters/ruri_standing_new.png",
+      "surprised": "res://assets/characters/ruri_surprised_new.png",
+      "sad": "res://assets/characters/ruri_sad_new.png"
+    }
+  },
+  "backgrounds": {
+    "detective_office_dusk": "res://assets/backgrounds/detective_office_dusk_v2.png",
+    "living_room_crime_scene": "res://assets/backgrounds/living_room_crime_scene_v2.png",
+    "rainy_neon_back_alley": "res://assets/backgrounds/rainy_neon_back_alley_v2.png",
+    "police_interrogation_room": "res://assets/backgrounds/police_interrogation_room_v2.png",
+    "late_night_diner": "res://assets/backgrounds/late_night_diner_interior_v2.png",
+    "mysterious_assembly_hall": "res://assets/backgrounds/mysterious_assembly_hall.png"
+  },
+  "ui": {
+    "dialogue_box": "res://assets/ui/dialogue_ui_mockup.png",
+    "menu_screen": "res://assets/ui/menu_ui_mockup.png"
+  }
+}

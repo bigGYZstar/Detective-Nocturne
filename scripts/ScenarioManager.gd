@@ -1,262 +1,208 @@
 extends Node
 
-# シナリオ管理システム（拡張版）
-class_name ScenarioManagerExtended
-
-# シナリオデータ
-var scenario_data: Dictionary = {}
-var current_scenario: Array = []
-var current_index: int = 0
-
-# 第一章のシナリオ
-var chapter_01_scenario: Array = [
-	{
-		"type": "narration",
-		"text": "一条瑠璃からの依頼を受けた翌朝。みずきと沙織は、銀の黄昏会について調査を開始した。"
-	},
-	{
-		"type": "show_character",
-		"character": "mizuki",
-		"position": "center",
-		"expression": "normal"
-	},
-	{
-		"type": "dialog",
-		"speaker": "みずき",
-		"text": "沙織、昨夜調べた『銀の黄昏会』の情報をまとめてくれる？"
-	},
-	{
-		"type": "show_character",
-		"character": "saori",
-		"position": "right",
-		"expression": "normal"
-	},
-	{
-		"type": "dialog",
-		"speaker": "沙織",
-		"text": "はい。この団体は約10年前に設立され、表向きは古代文明の研究を目的とした学術団体です。"
-	},
-	{
-		"type": "dialog",
-		"speaker": "沙織",
-		"text": "しかし、実態は不明な点が多く、一部では新興宗教団体とも噂されています。"
-	},
-	{
-		"type": "change_expression",
-		"character": "mizuki",
-		"expression": "surprised"
-	},
-	{
-		"type": "dialog",
-		"speaker": "みずき",
-		"text": "10年前...それほど歴史のある団体なのね。一条氏が関わるようになったのは最近だというのに。"
-	},
-	{
-		"type": "change_background",
-		"background": "living_room_crime_scene"
-	},
-	{
-		"type": "narration",
-		"text": "みずきと沙織は、一条氏が最後に目撃された場所へと向かった。そこは、奇妙な痕跡が残された現場だった。"
-	},
-	{
-		"type": "hide_character",
-		"character": "saori"
-	},
-	{
-		"type": "change_expression",
-		"character": "mizuki",
-		"expression": "normal"
-	},
-	{
-		"type": "dialog",
-		"speaker": "みずき",
-		"text": "ここが一条氏が最後に目撃された場所...確かに何かあったようね。"
-	},
-	{
-		"type": "show_character",
-		"character": "saori",
-		"position": "right",
-		"expression": "surprised"
-	},
-	{
-		"type": "dialog",
-		"speaker": "沙織",
-		"text": "みずきさん、こちらをご覧ください。床に奇妙な文様が描かれています。"
-	},
-	{
-		"type": "change_background",
-		"background": "late_night_diner"
-	},
-	{
-		"type": "narration",
-		"text": "夜。みずきと沙織は、瑠璃から新たな情報を得るため、深夜のダイナーで待ち合わせをした。"
-	},
-	{
-		"type": "hide_character",
-		"character": "saori"
-	},
-	{
-		"type": "show_character",
-		"character": "ruri",
-		"position": "center",
-		"expression": "sad"
-	},
-	{
-		"type": "dialog",
-		"speaker": "瑠璃",
-		"text": "お二人とも...調査の進展はありましたか？"
-	},
-	{
-		"type": "show_character",
-		"character": "mizuki",
-		"position": "left",
-		"expression": "normal"
-	},
-	{
-		"type": "dialog",
-		"speaker": "みずき",
-		"text": "ええ。あなたのお父様が最後に目撃された現場を調べました。そこには儀式の痕跡がありました。"
-	},
-	{
-		"type": "narration",
-		"text": "こうして、みずきと沙織は銀の黄昏会の本拠地とされる廃教会へと向かう決意を固めた。"
-	},
-	{
-		"type": "hide_all_characters"
-	},
-	{
-		"type": "narration",
-		"text": "第一章 完"
-	}
-]
-
-# 第二章のシナリオ
-var chapter_02_scenario: Array = [
-	{
-		"type": "change_background",
-		"background": "mysterious_assembly_hall"
-	},
-	{
-		"type": "narration",
-		"text": "深夜。みずきと沙織は、旧市街の廃教会へと潜入した。建物の内部は薄暗く、不気味な雰囲気に包まれていた。"
-	},
-	{
-		"type": "show_character",
-		"character": "mizuki",
-		"position": "left",
-		"expression": "normal"
-	},
-	{
-		"type": "dialog",
-		"speaker": "みずき",
-		"text": "静かに...誰かいるかもしれない。"
-	},
-	{
-		"type": "show_character",
-		"character": "saori",
-		"position": "right",
-		"expression": "surprised"
-	},
-	{
-		"type": "dialog",
-		"speaker": "沙織",
-		"text": "みずきさん、あちらを...ろうそくの灯りが見えます。"
-	},
-	{
-		"type": "narration",
-		"text": "二人は慎重に奥へと進む。そこには、奇妙な祭壇と、壁一面に描かれた古代文字が広がっていた。"
-	},
-	{
-		"type": "change_expression",
-		"character": "mizuki",
-		"expression": "surprised"
-	},
-	{
-		"type": "dialog",
-		"speaker": "みずき",
-		"text": "これは...まるで儀式の場所ね。ここで一体何が行われていたの？"
-	},
-	{
-		"type": "dialog",
-		"speaker": "沙織",
-		"text": "この文字...古代シュメール語のようです。『アザゼルの鍵を用いて、禁断の扉を開く』と書かれています。"
-	},
-	{
-		"type": "change_expression",
-		"character": "mizuki",
-		"expression": "sad"
-	},
-	{
-		"type": "dialog",
-		"speaker": "みずき",
-		"text": "やはり、この団体は本気でその鍵を探しているのね。そして一条氏も、その儀式に巻き込まれた可能性が高い。"
-	},
-	{
-		"type": "narration",
-		"text": "その時、背後から足音が聞こえた。二人は振り返ると、そこには黒いローブを纏った男が立っていた。"
-	},
-	{
-		"type": "hide_character",
-		"character": "saori"
-	},
-	{
-		"type": "change_expression",
-		"character": "mizuki",
-		"expression": "surprised"
-	},
-	{
-		"type": "dialog",
-		"speaker": "みずき",
-		"text": "誰！？"
-	},
-	{
-		"type": "narration",
-		"text": "二人は日記を手に、さらなる手がかりを求めて調査を続けることにした。しかし、銀の黄昏会の真の目的とは何なのか。そして、一条氏は本当に無事なのか。謎は深まるばかりだった..."
-	},
-	{
-		"type": "hide_all_characters"
-	},
-	{
-		"type": "narration",
-		"text": "第二章 完"
-	}
-]
+class_name ScenarioManager
 
 signal scenario_command_executed(command: Dictionary)
+signal scenario_loaded(chapter_id: String)
+
+var scenario_data: Dictionary = {}
+var asset_manifest: Dictionary = {}
+var current_scenario_commands: Array = []
+var current_command_index: int = 0
+var current_chapter_id: String = ""
+
+# 既読管理用のセット
+var read_commands: Dictionary = {}
 
 func _ready():
-	load_scenario_data()
+	load_asset_manifest()
+	load_all_scenarios()
 
-# シナリオデータの読み込み
-func load_scenario_data():
-	scenario_data["chapter_01"] = chapter_01_scenario
-	scenario_data["chapter_02"] = chapter_02_scenario
-
-# シナリオを開始
-func start_scenario(scenario_name: String):
-	if scenario_name in scenario_data:
-		current_scenario = scenario_data[scenario_name]
-		current_index = 0
-		execute_next_command()
+func load_asset_manifest():
+	var file = FileAccess.open("res://data/assets/manifest.json", FileAccess.READ)
+	if file:
+		var content = file.get_as_text()
+		asset_manifest = JSON.parse_string(content)
+		file.close()
+		if asset_manifest == null:
+			printerr("Error parsing manifest.json")
 	else:
-		print("Scenario not found: ", scenario_name)
+		printerr("Could not open manifest.json")
 
-# 次のコマンドを実行
-func execute_next_command():
-	if current_index >= current_scenario.size():
-		print("Scenario finished")
+func load_all_scenarios():
+	var dir = DirAccess.open("res://data/scenarios/")
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if file_name.ends_with(".json"):
+				var chapter_id = file_name.replace(".json", "")
+				var file_path = "res://data/scenarios/" + file_name
+				var file = FileAccess.open(file_path, FileAccess.READ)
+				if file:
+					var content = file.get_as_text()
+					var parsed_scenario = JSON.parse_string(content)
+					file.close()
+					if parsed_scenario == null:
+						printerr("Error parsing scenario file: " + file_name)
+					else:
+						scenario_data[chapter_id] = parsed_scenario
+						print("Loaded scenario: " + chapter_id)
+				else:
+					printerr("Could not open scenario file: " + file_name)
+			file_name = dir.get_next()
+		dir.list_dir_end()
+	else:
+		printerr("Could not open directory: res://data/scenarios/")
+
+func start_scenario(chapter_id: String, start_command_id: String = ""):
+	if not scenario_data.has(chapter_id):
+		printerr("Scenario chapter not found: " + chapter_id)
 		return
+
+	current_chapter_id = chapter_id
+	current_scenario_commands = scenario_data[chapter_id]
+	current_command_index = 0
+
+	if start_command_id != "":
+		var found_index = -1
+		for i in range(current_scenario_commands.size()):
+			if current_scenario_commands[i].has("id") and current_scenario_commands[i]["id"] == start_command_id:
+				found_index = i
+				break
+		if found_index != -1:
+			current_command_index = found_index
+		else:
+			printerr("Start command ID not found in scenario: " + start_command_id)
+			return
+
+	scenario_loaded.emit(chapter_id)
+	execute_current_command()
+
+func execute_current_command():
+	if current_command_index >= current_scenario_commands.size():
+		print("Scenario finished for chapter: " + current_chapter_id)
+		return
+
+	var command = current_scenario_commands[current_command_index]
 	
-	var command = current_scenario[current_index]
-	current_index += 1
-	
+	# 既読としてマーク
+	if command.has("id"):
+		mark_command_as_read(current_chapter_id, command["id"])
+
 	scenario_command_executed.emit(command)
 
-# シナリオを進める
-func advance_scenario():
-	execute_next_command()
+func advance_scenario(skip_read: bool = false):
+	current_command_index += 1
+	while skip_read and current_command_index < current_scenario_commands.size():
+		var command = current_scenario_commands[current_command_index]
+		if command.has("id") and is_command_read(current_chapter_id, command["id"]):
+			current_command_index += 1
+		else:
+			break
 
-# 次のコマンドがあるか確認
+	execute_current_command()
+
 func has_next_command() -> bool:
-	return current_index < current_scenario.size()
+	return current_command_index < current_scenario_commands.size()
+
+func get_asset_path(asset_type: String, asset_key: String, sub_key: String = "") -> String:
+	if asset_manifest.has(asset_type):
+		if sub_key != "":
+			if asset_manifest[asset_type].has(asset_key) and asset_manifest[asset_type][asset_key].has(sub_key):
+				return asset_manifest[asset_type][asset_key][sub_key]
+			else:
+				printerr("Asset sub_key not found in manifest: " + asset_type + "." + asset_key + "." + sub_key)
+		elif asset_manifest[asset_type].has(asset_key):
+			return asset_manifest[asset_type][asset_key]
+		else:
+			printerr("Asset key not found in manifest: " + asset_type + "." + asset_key)
+	else:
+		printerr("Asset type not found in manifest: " + asset_type)
+	return ""
+
+# セーブ/ロード機能のための状態取得
+func get_current_state() -> Dictionary:
+	return {
+		"chapter_id": current_chapter_id,
+		"command_id": current_scenario_commands[current_command_index]["id"] if current_scenario_commands.size() > 0 and current_command_index < current_scenario_commands.size() and current_scenario_commands[current_command_index].has("id") else "",
+		"read_commands": read_commands
+	}
+
+# セーブ状態からの復元
+func load_state(state: Dictionary):
+	current_chapter_id = state.get("chapter_id", "")
+	read_commands = state.get("read_commands", {})
+	if current_chapter_id != "":
+		start_scenario(current_chapter_id, state.get("command_id", ""))
+
+# 既読管理
+func mark_command_as_read(chapter_id: String, command_id: String):
+	if not read_commands.has(chapter_id):
+		read_commands[chapter_id] = {}
+	read_commands[chapter_id][command_id] = true
+
+func is_command_read(chapter_id: String, command_id: String) -> bool:
+	return read_commands.has(chapter_id) and read_commands[chapter_id].has(command_id) and read_commands[chapter_id][command_id]
+
+# バリデーション機能 (簡易版)
+func validate_scenario_data():
+	var errors = []
+	for chapter_id in scenario_data:
+		var chapter_commands = scenario_data[chapter_id]
+		var command_ids = {}
+		for i in range(chapter_commands.size()):
+			var command = chapter_commands[i]
+			if not command.has("id"):
+				errors.append("Chapter '%s', Command index %d: Missing 'id' field." % [chapter_id, i])
+				continue
+			var cmd_id = command["id"]
+			if command_ids.has(cmd_id):
+				errors.append("Chapter '%s', Command ID '%s': Duplicate ID found." % [chapter_id, cmd_id])
+			command_ids[cmd_id] = true
+
+			# アセット参照のチェック (簡易版)
+			if command.has("character"):
+				if not asset_manifest.has("characters") or not asset_manifest["characters"].has(command["character"]):
+					errors.append("Chapter '%s', Command ID '%s': Undefined character asset '%s'." % [chapter_id, cmd_id, command["character"]])
+			if command.has("background"):
+				if not asset_manifest.has("backgrounds") or not asset_manifest["backgrounds"].has(command["background"]):
+					errors.append("Chapter '%s', Command ID '%s': Undefined background asset '%s'." % [chapter_id, cmd_id, command["background"]])
+			
+			# ジャンプ先のチェック (もしjumpコマンドがあれば)
+			if command.get("type") == "jump":
+				var target_chapter = command.get("target_chapter", chapter_id)
+				var target_id = command.get("target_id")
+				if not scenario_data.has(target_chapter):
+					errors.append("Chapter '%s', Command ID '%s': Jump target chapter '%s' not found." % [chapter_id, cmd_id, target_chapter])
+				elif target_id != null:
+					var target_found = false
+					for target_cmd in scenario_data[target_chapter]:
+						if target_cmd.has("id") and target_cmd["id"] == target_id:
+							target_found = true
+							break
+					if not target_found:
+						errors.append("Chapter '%s', Command ID '%s': Jump target ID '%s' not found in chapter '%s'." % [chapter_id, cmd_id, target_id, target_chapter])
+
+			# 翻訳キーのチェック (簡易版)
+			if command.has("text") and typeof(command["text"]) == TYPE_DICTIONARY:
+				if not command["text"].has("ja") and not command["text"].has("text_key"):
+					errors.append("Chapter '%s', Command ID '%s': Text field missing 'ja' or 'text_key'." % [chapter_id, cmd_id])
+
+	if errors.is_empty():
+		print("Scenario data validation successful.")
+	else:
+		printerr("Scenario data validation failed with %d errors:" % errors.size())
+		for error in errors:
+			printerr("- " + error)
+	return errors.is_empty()
+
+
+# 既存のGDScriptシナリオを削除
+# var chapter_01_scenario: Array = [...]
+# var chapter_02_scenario: Array = [...]
+
+# func load_scenario_data():
+# 	scenario_data["chapter_01"] = chapter_01_scenario
+# 	scenario_data["chapter_02"] = chapter_02_scenario
+
