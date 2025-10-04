@@ -1,0 +1,6 @@
+SCENE: Detective Office (dusk)
+CHARACTER: 水島みずき
+DIALOGUE: 「この事件、私が解決してみせます。どんなに複雑な謎でも、必ず真実を暴き出しましょう。」
+
+CHARACTER: 水島みずき
+DIALOGUE: 「田村、資料の準備はできているか？現場に向かうぞ。」

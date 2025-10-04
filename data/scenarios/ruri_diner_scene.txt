@@ -1,0 +1,6 @@
+SCENE: Late-Night Diner Interior
+CHARACTER: 一条瑠璃
+DIALOGUE: 「父はどこへ行ってしまったのでしょうか...。このポスターを貼っても、誰も手がかりを教えてくれません。」
+
+CHARACTER: 一条瑠璃
+DIALOGUE: 「探偵さん、本当に父を見つけ出してくれるのでしょうか...不安でたまりません。」
