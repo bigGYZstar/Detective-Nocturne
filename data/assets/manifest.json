@@ -1,40 +1,57 @@
 {
   "characters": {
     "hasekawa": {
-      "normal": "res://assets/characters/hasekawa_normal_improved.png"
+      "normal": "res://assets/characters/hasekawa_normal_improved.png",
+      "non_pixel": "res://assets/characters/hasekawa_normal_non_pixel.png",
+      "high_saturation": "res://assets/characters/hasekawa_normal_high_saturation.png"
     },
     "tanaka": {
-      "normal": "res://assets/characters/tanaka_normal_improved.png"
+      "normal": "res://assets/characters/tanaka_normal_improved.png",
+      "non_pixel": "res://assets/characters/tanaka_normal_non_pixel.png",
+      "high_saturation": "res://assets/characters/tanaka_normal_high_saturation.png"
     },
     "mizuki": {
       "normal": "res://assets/characters/mizuki_standing_high_saturation.png",
       "surprised": "res://assets/characters/mizuki_surprised_new.png",
       "sad": "res://assets/characters/mizuki_sad_new.png",
-      "determined": "res://assets/characters/mizuki_determined_new.png"
+      "determined": "res://assets/characters/mizuki_determined_new.png",
+      "non_pixel": "res://assets/characters/mizuki_standing_non_pixel.png"
     },
     "saori": {
       "normal": "res://assets/characters/saori_standing_blonde_high_saturation.png",
       "surprised": "res://assets/characters/saori_surprised_new.png",
       "sad": "res://assets/characters/saori_sad_new.png",
-      "determined": "res://assets/characters/saori_determined_new.png"
+      "determined": "res://assets/characters/saori_determined_new.png",
+      "non_pixel": "res://assets/characters/saori_standing_non_pixel.png"
     },
     "ruri": {
       "normal": "res://assets/characters/ruri_standing_improved.png",
       "surprised": "res://assets/characters/ruri_surprised_new.png",
       "sad": "res://assets/characters/ruri_sad_new.png",
-      "determined": "res://assets/characters/ruri_determined_new.png"
+      "determined": "res://assets/characters/ruri_determined_new.png",
+      "non_pixel": "res://assets/characters/ruri_standing_non_pixel.png",
+      "high_saturation": "res://assets/characters/ruri_standing_high_saturation.png"
     }
   },
   "bg": {
     "silver_twilight_assembly": "res://assets/backgrounds/silver_twilight_assembly.png",
+    "silver_twilight_assembly_non_pixel": "res://assets/backgrounds/silver_twilight_assembly_non_pixel.png",
     "detective_office_dusk": "res://assets/backgrounds/detective_office_dusk_v2.png",
+    "detective_office_dusk_non_pixel": "res://assets/backgrounds/detective_office_dusk_non_pixel.png",
     "living_room_crime_scene": "res://assets/backgrounds/living_room_crime_scene_v2.png",
+    "living_room_crime_scene_non_pixel": "res://assets/backgrounds/living_room_crime_scene_non_pixel.png",
     "rainy_neon_back_alley": "res://assets/backgrounds/rainy_neon_back_alley_v2.png",
+    "rainy_neon_back_alley_non_pixel": "res://assets/backgrounds/rainy_neon_back_alley_non_pixel.png",
     "police_interrogation_room": "res://assets/backgrounds/police_interrogation_room_v2.png",
+    "police_interrogation_room_non_pixel": "res://assets/backgrounds/police_interrogation_room_non_pixel.png",
     "late_night_diner": "res://assets/backgrounds/late_night_diner_interior_v2.png",
+    "late_night_diner_non_pixel": "res://assets/backgrounds/late_night_diner_interior_non_pixel.png",
     "mysterious_assembly_hall": "res://assets/backgrounds/mysterious_assembly_hall.png",
+    "mysterious_assembly_hall_non_pixel": "res://assets/backgrounds/mysterious_assembly_hall_non_pixel.png",
     "old_mansion_basement": "res://assets/backgrounds/old_mansion_basement.png",
-    "old_mansion_interior": "res://assets/backgrounds/old_mansion_interior.png"
+    "old_mansion_basement_non_pixel": "res://assets/backgrounds/old_mansion_basement_non_pixel.png",
+    "old_mansion_interior": "res://assets/backgrounds/old_mansion_interior.png",
+    "old_mansion_interior_non_pixel": "res://assets/backgrounds/old_mansion_interior_non_pixel.png"
   },
   "ui": {
     "dialogue_box": "res://assets/ui/dialogue_ui_mockup.png",
