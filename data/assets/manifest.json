@@ -1,25 +1,25 @@
 {
   "characters": {
     "hasekawa": {
-      "normal": "res://assets/characters/hasekawa_normal.png"
+      "normal": "res://assets/characters/hasekawa_normal_improved.png"
     },
     "tanaka": {
-      "normal": "res://assets/characters/tanaka_normal.png"
+      "normal": "res://assets/characters/tanaka_normal_improved.png"
     },
     "mizuki": {
-      "normal": "res://assets/characters/mizuki_standing_new.png",
+      "normal": "res://assets/characters/mizuki_standing_improved.png",
       "surprised": "res://assets/characters/mizuki_surprised_new.png",
       "sad": "res://assets/characters/mizuki_sad_new.png",
       "determined": "res://assets/characters/mizuki_determined_new.png"
     },
     "saori": {
-      "normal": "res://assets/characters/saori_standing_new.png",
+      "normal": "res://assets/characters/saori_standing_improved.png",
       "surprised": "res://assets/characters/saori_surprised_new.png",
       "sad": "res://assets/characters/saori_sad_new.png",
       "determined": "res://assets/characters/saori_determined_new.png"
     },
     "ruri": {
-      "normal": "res://assets/characters/ruri_standing_new.png",
+      "normal": "res://assets/characters/ruri_standing_improved.png",
       "surprised": "res://assets/characters/ruri_surprised_new.png",
       "sad": "res://assets/characters/ruri_sad_new.png",
       "determined": "res://assets/characters/ruri_determined_new.png"
