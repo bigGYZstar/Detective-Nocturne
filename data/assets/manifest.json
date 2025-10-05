@@ -7,13 +7,13 @@
       "normal": "res://assets/characters/tanaka_normal_improved.png"
     },
     "mizuki": {
-      "normal": "res://assets/characters/mizuki_standing_improved.png",
+      "normal": "res://assets/characters/mizuki_standing_high_saturation.png",
       "surprised": "res://assets/characters/mizuki_surprised_new.png",
       "sad": "res://assets/characters/mizuki_sad_new.png",
       "determined": "res://assets/characters/mizuki_determined_new.png"
     },
     "saori": {
-      "normal": "res://assets/characters/saori_standing_improved.png",
+      "normal": "res://assets/characters/saori_standing_blonde_high_saturation.png",
       "surprised": "res://assets/characters/saori_surprised_new.png",
       "sad": "res://assets/characters/saori_sad_new.png",
       "determined": "res://assets/characters/saori_determined_new.png"
