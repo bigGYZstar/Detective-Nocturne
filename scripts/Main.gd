@@ -32,10 +32,11 @@ func _on_start_button_pressed():
 	menu_layer.hide()
 	if start_button:
 		start_button.hide()
-		start_button.visible = false
 	start_game()
 
 func start_game():
+	# BGMを再生
+	GameManager.instance.play_bgm("res://assets/audio/bgm/opening.mp3") # 仮のBGMパス
 	# 序章シナリオを開始
 	scenario_manager.start_scenario("prologue")
 

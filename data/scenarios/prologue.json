@@ -1,0 +1,51 @@
+[
+	{
+		"id": "start",
+		"type": "background",
+		"background": "office_day"
+	},
+	{
+		"id": "mizuki_entry",
+		"type": "show_character",
+		"character": "mizuki",
+		"expression": "normal",
+		"position": "center"
+	},
+	{
+		"id": "mizuki_greeting",
+		"type": "dialog",
+		"speaker": "水島みずき",
+		"text": "ようこそ、探偵事務所へ。"
+	},
+	{
+		"id": "saori_entry",
+		"type": "show_character",
+		"character": "saori",
+		"expression": "normal",
+		"position": "right"
+	},
+	{
+		"id": "saori_greeting",
+		"type": "dialog",
+		"speaker": "田村沙織",
+		"text": "何かお困りですか？"
+	},
+	{
+		"id": "ruri_entry",
+		"type": "show_character",
+		"character": "ruri",
+		"expression": "normal",
+		"position": "left"
+	},
+	{
+		"id": "ruri_greeting",
+		"type": "dialog",
+		"speaker": "一条瑠璃",
+		"text": "はい...お恥ずかしながら。お二人に、どうしてもお願いがあって参りました。"
+	},
+	{
+		"id": "end",
+		"type": "hide_all_characters"
+	}
+]
+

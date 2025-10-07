@@ -198,11 +198,7 @@ func validate_scenario_data():
 	return errors.is_empty()
 
 
-# 既存のGDScriptシナリオを削除
-# var chapter_01_scenario: Array = [...]
-# var chapter_02_scenario: Array = [...]
-
-# func load_scenario_data():
-# 	scenario_data["chapter_01"] = chapter_01_scenario
-# 	scenario_data["chapter_02"] = chapter_02_scenario
+func load_scenario_data():
+	# シナリオデータはJSONファイルから自動的にロードされるため、ここでは何もしません。
+	pass
 
