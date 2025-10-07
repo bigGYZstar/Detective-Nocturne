@@ -294,7 +294,8 @@ func _await_frames(frame_count: int) -> void:
 func _ensure_topmost() -> void:
 	z_index = max(z_index, 1000)
 	dialog_box.z_index = 1000
-	dialog_box.move_to_front()
+	if dialog_box is Control:
+		dialog_box.move_to_front()
 	var canvas_layer := get_parent()
 	if canvas_layer is CanvasLayer:
 		canvas_layer.layer = max(canvas_layer.layer, 100)

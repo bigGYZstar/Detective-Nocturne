@@ -4,19 +4,29 @@ class_name StartScreen
 
 # スタート画面のメインスクリプト
 
+const GAME_VERSION := "ver0.002"
+const TITLE_BGM_PATH := "res://assets/audio/bgm/bgm_title_screen.wav"
+const DEFAULT_BGM_DB := 1.0
+const GameManagerClass := preload("res://scripts/GameManager.gd")
+
+@onready var version_label: Label = $VersionLabel
 @onready var start_button = $MenuContainer/StartButton
 @onready var continue_button = $MenuContainer/ContinueButton
 @onready var gallery_button = $MenuContainer/GalleryButton
 
-func _ready():
-	# ボタンの初期設定
+func _ready() -> void:
 	setup_buttons()
-	
-	# セーブデータの存在確認
+	version_label.text = GAME_VERSION
+	# キャラ立ち絵の透過処理
+	$CharacterContainer/MizukiSprite.modulate.a = 1.0
+	$CharacterContainer/SaoriSprite.modulate.a = 1.0
+	var gm = GameManagerClass.instance
+	var stream := load(TITLE_BGM_PATH) as AudioStream
+	if gm and stream:
+		gm.play_bgm(stream, DEFAULT_BGM_DB, true)
+	elif not stream:
+		push_warning("Title BGM not found or not an AudioStream: %s" % TITLE_BGM_PATH)
 	check_save_data()
-
-
-
 
 func setup_buttons():
 	# ボタンのスタイル設定
@@ -53,36 +63,37 @@ func setup_buttons():
 
 func check_save_data():
 	# セーブデータの存在確認
-	if GameManager.instance and FileAccess.file_exists(GameManager.SAVE_PATH):
+	if GameManagerClass.instance and FileAccess.file_exists(GameManagerClass.SAVE_PATH):
 		continue_button.disabled = false
 		continue_button.modulate = Color(1.0, 1.0, 1.0, 1.0)
 	else:
 		continue_button.disabled = true
 		continue_button.modulate = Color(0.6, 0.6, 0.6, 1.0)
 
-
 # ボタンのシグナル処理
 func _on_start_button_pressed():
 	print("新しいゲームを開始します")
 	# GameManagerの状態をリセットして新しいゲームを開始
-	if GameManager.instance:
-		GameManager.instance.stop_bgm() # BGMを停止
-		GameManager.instance.current_chapter = 0
-		GameManager.instance.current_scene = 0
-		GameManager.instance.character_affection = {"mizuki": 0, "saori": 0, "ruri": 0}
-		GameManager.instance.game_flags = {}
-		GameManager.instance.change_state(GameManager.GameState.PLAYING)
-	
+	if GameManagerClass.instance:
+		GameManagerClass.instance.stop_bgm() # BGMを停止
+		GameManagerClass.instance.current_chapter = 0
+		GameManagerClass.instance.current_scene = 0
+		GameManagerClass.instance.character_affection = {"mizuki": 0, "saori": 0, "ruri": 0}
+		GameManagerClass.instance.game_flags = {}
+		GameManagerClass.instance.change_state(GameManagerClass.GameState.PLAYING)
+
+	# ボタン群を非表示にする
+	$MenuContainer.visible = false
 	# メインゲームシーンに移行
 	get_tree().change_scene_to_file("res://scenes/Main.tscn")
 
 func _on_continue_button_pressed():
 	print("セーブデータからゲームを継続します")
-	if GameManager.instance:
-		var save_data = GameManager.instance.load_game()
+	if GameManagerClass.instance:
+		var save_data = GameManagerClass.instance.load_game()
 		if save_data:
-			GameManager.instance.load_save_data(save_data)
-			GameManager.instance.change_state(GameManager.GameState.PLAYING)
+			GameManagerClass.instance.load_save_data(save_data)
+			GameManagerClass.instance.change_state(GameManagerClass.GameState.PLAYING)
 			get_tree().change_scene_to_file("res://scenes/Main.tscn")
 		else:
 			print("セーブデータが見つかりませんでした。")

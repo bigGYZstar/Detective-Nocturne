@@ -44,6 +44,7 @@ func _ready():
 	if instance == null:
 		instance = self
 		process_mode = Node.PROCESS_MODE_ALWAYS
+		_ensure_bgm_player()
 	else:
 		queue_free()
 
@@ -122,34 +123,66 @@ func quit_game():
 
 
 # BGM管理
-var bgm_player: AudioStreamPlayer
+var bgm_player: AudioStreamPlayer = null
+var bgm_offset_db: float = 0.0
 
-func _init():
-	# AudioStreamPlayerを動的に作成
-	bgm_player = AudioStreamPlayer.new()
-	add_child(bgm_player)
+func _ensure_bgm_player() -> void:
+	if bgm_player == null:
+		bgm_player = AudioStreamPlayer.new()
+	var parent := bgm_player.get_parent()
+	if parent != self:
+		if parent != null:
+			parent.remove_child(bgm_player)
+		add_child(bgm_player)
+	bgm_player.bus = _determine_bgm_bus()
 
-func play_bgm(path: String, volume: float = 1.0, loop: bool = true):
-	if not path.is_empty():
-		var audio_stream = load(path)
-		if audio_stream:
-			bgm_player.stream = audio_stream
-			bgm_player.volume_db = linear_to_db(volume * settings.bgm_volume)
-			bgm_player.bus = "BGM"
-			bgm_player.play()
-			print("Playing BGM: ", path)
-		else:
-			printerr("Failed to load BGM: ", path)
+func play_bgm(stream: AudioStream, volume_db: float = 0.0, _loop: bool = true) -> void:
+	if stream == null:
+		printerr("[GameManager] play_bgm called with null stream")
+		return
 
-func stop_bgm():
+	var playable := stream.duplicate() if stream.has_method("duplicate") else stream
+	if playable is AudioStreamWAV:
+			playable.loop_mode = AudioStreamWAV.LOOP_FORWARD if _loop else AudioStreamWAV.LOOP_DISABLED
+	elif playable.has_method("set_loop"):
+		playable.set_loop(_loop)
+
+	_ensure_bgm_player()
+	bgm_player.stream = playable
+	bgm_offset_db = volume_db
+	bgm_player.volume_db = linear_to_db(settings.bgm_volume) + bgm_offset_db
+	bgm_player.play()
+	print("[GameManager] Playing BGM stream")
+
+func play_bgm_from_path(path: String, volume: float = 1.0, loop: bool = true) -> void:
+	if path.is_empty():
+		printerr("[GameManager] play_bgm_from_path called with empty path")
+		return
+
+	var stream := load(path) as AudioStream
+	if stream == null:
+		printerr("[GameManager] Failed to load BGM: %s" % path)
+		return
+
+	var clamped_volume: float = clamp(volume, 0.0, 1.0)
+	play_bgm(stream, linear_to_db(clamped_volume), loop)
+
+func stop_bgm() -> void:
+	if bgm_player == null:
+		return
 	bgm_player.stop()
 	print("BGM stopped.")
 
-func set_bgm_volume(volume: float):
+func set_bgm_volume(volume: float) -> void:
 	settings.bgm_volume = volume
+	_ensure_bgm_player()
 	if bgm_player.stream:
-		bgm_player.volume_db = linear_to_db(settings.bgm_volume)
+		bgm_player.volume_db = linear_to_db(settings.bgm_volume) + bgm_offset_db
 	print("BGM volume set to: ", volume)
+
+func _determine_bgm_bus() -> String:
+	var index := AudioServer.get_bus_index("BGM")
+	return "BGM" if index != -1 else "Master"
 
 
 
@@ -189,4 +222,3 @@ func load_game() -> Dictionary:
 	else:
 		printerr("Failed to load game.")	
 		return {}
-

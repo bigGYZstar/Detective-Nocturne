@@ -2,7 +2,7 @@ extends Control
 
 # メインシーンコントローラー
 @onready var dialog_system: DialogSystem = $UILayer/DialogSystem
-@onready var character_manager: CharacterManager = $CharacterManager
+@onready var character_manager = $CharacterManager
 @onready var scenario_manager: ScenarioManager = $ScenarioManager
 @onready var start_button: Button = $MenuLayer/StartButton
 @onready var menu_layer: CanvasLayer = $MenuLayer
@@ -28,8 +28,11 @@ func _ready():
 		start_game()
 
 func _on_start_button_pressed():
-	# メニューを非表示にしてゲーム開始
+	# メニューとボタンを非表示にしてゲーム開始
 	menu_layer.hide()
+	if start_button:
+		start_button.hide()
+		start_button.visible = false
 	start_game()
 
 func start_game():
@@ -86,7 +89,12 @@ func _on_scenario_command(command: Dictionary):
 
 		"play_bgm":
 			# BGMを再生
-			GameManager.instance.play_bgm(command.path, command.get("volume", 1.0), command.get("loop", true))
+			var stream := load(command.path) as AudioStream
+			if stream:
+				var volume_linear: float = clamp(command.get("volume", 1.0), 0.0, 1.0)
+				GameManager.instance.play_bgm(stream, linear_to_db(volume_linear), command.get("loop", true))
+			else:
+				push_warning("Scenario BGM not found: %s" % command.path)
 			scenario_manager.advance_scenario()
 
 		"stop_bgm":
@@ -94,20 +102,20 @@ func _on_scenario_command(command: Dictionary):
 			GameManager.instance.stop_bgm()
 			scenario_manager.advance_scenario()
 
-func get_character_position(position_string: String) -> CharacterManager.Position:
+func get_character_position(position_string: String):
 	match position_string:
 		"left":
-			return CharacterManager.Position.LEFT
+			return character_manager.Position.LEFT
 		"center":
-			return CharacterManager.Position.CENTER
+			return character_manager.Position.CENTER
 		"right":
-			return CharacterManager.Position.RIGHT
+			return character_manager.Position.RIGHT
 		"far_left":
-			return CharacterManager.Position.FAR_LEFT
+			return character_manager.Position.FAR_LEFT
 		"far_right":
-			return CharacterManager.Position.FAR_RIGHT
+			return character_manager.Position.FAR_RIGHT
 		_:
-			return CharacterManager.Position.CENTER
+			return character_manager.Position.CENTER
 
 func _on_dialog_finished():
 	# ダイアログ終了後、次のシナリオコマンドを実行
@@ -123,4 +131,3 @@ func _input(event):
 		if GameManager.instance.current_state == GameManager.GameState.DIALOG:
 			return  # ダイアログ中はメニューを開かない
 		menu_layer.visible = !menu_layer.visible
-
