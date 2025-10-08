@@ -85,20 +85,20 @@ Upbeat, cheerful, happy, fast tempo, vocal, lyrics, choir, rock, metal, electron
 *   **推奨ファイル名:** `climax_resolution`
 
 *   **コンセプト:** 事件の真相が明らかになり、犯人が追い詰められる、あるいは重要な手がかりが繋がるなど、物語が大きく動くクライマックスシーンの音楽。高揚感と解決へのカタルシスを表現します。
-*   **ジャンル:** エピックオーケストラ、シネマティックトランス、またはプログレッシブジャズ。
-*   **雰囲気:** 劇的で感情的、しかし冷静な推理の積み重ねによる解決を表現するため、単なる激しさだけでなく、知的な達成感や壮大さも感じさせます。テンポが速くなり、音量も大きくなります。
-*   **楽器構成:** フルオーケストラ（特にブラスとストリングス）、力強いドラムとパーカッション、シンセサイザーのリード音、エレキギター。
+*   **ジャンル:** ミニマルシネマティック、チェンバーミステリー、または現代的なネオクラシカル。
+*   **雰囲気:** 静かな緊張感の中から、徐々に感情が高まっていくような、内省的で感動的な雰囲気。壮大さよりも、登場人物の心情に寄り添うような親密さを重視します。クライマックスに向けてテンポと音量は徐々に増加しますが、あくまで抑制の効いた範囲に留めます。
+*   **楽器構成:** ソロピアノ、チェロ、軽いパーカッション（ブラシ）、小規模なストリングスアンサンブル、ミュートトランペット。
 
 ### Sunoプロンプト
 ```
 [Verse 1]
-Epic orchestral, cinematic, driving rhythm, powerful brass, soaring strings, intense percussion, dramatic build-up, thrilling, high stakes, intellectual triumph, revelation, fast tempo, emotional climax
+Intimate, minimalist, building tension, solo piano melody, subtle cello counterpoint, light percussion (brushes), reflective, intellectual triumph, emotional depth, slow to moderate tempo, dramatic reveal, quiet intensity
 
 [Chorus]
-Main theme reprise, triumphant, cathartic, resolution, dynamic, grand, full orchestra, electric guitar accents, synth leads, urban drama, justice served, powerful conclusion
+Main theme motif, swelling strings (small ensemble), gentle brass accents (muted trumpet), poignant, cathartic, resolution, thoughtful, understated power, justice served, personal reflection, urban drama
 
 [Outro]
-Decisive orchestral hit, fading strings, sense of accomplishment, lingering power, grand fade out
+Fading piano, lingering cello, sense of accomplishment, quiet hope, gentle fade out
 ```
 
 ### ネガティブプロンプト
