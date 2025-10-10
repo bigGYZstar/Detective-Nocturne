@@ -13,23 +13,26 @@ const GameManagerClass := preload("res://scripts/GameManager.gd")
 @onready var start_button = $MenuContainer/StartButton
 @onready var continue_button = $MenuContainer/ContinueButton
 @onready var gallery_button = $MenuContainer/GalleryButton
+@onready var menu_container = $MenuContainer # 追加
 
 func _ready() -> void:
-	print("[StartScreen] _ready() called - ensuring start UI visible")
+	# デバッグログ：_ready()の開始
+	print("StartScreen _ready: 実行開始")
+
+	# StartScreenノード自体が非表示になっている可能性を考慮し、明示的に表示
 	self.show()
 	self.visible = true
-	print("[StartScreen] Root node visibility: %s" % str(self.visible))
-	$MenuContainer.show()
-	$MenuContainer.visible = true
-	print("[StartScreen] MenuContainer visibility: %s" % str($MenuContainer.visible))
-	if start_button:
-		start_button.show()
-		start_button.disabled = false
-		print("[StartScreen] Start button shown and enabled (visible=%s disabled=%s)" % [str(start_button.visible), str(start_button.disabled)])
-	else:
-		printerr("[StartScreen] Start button reference missing")
+
+	# 1. メニューとボタンを必ず表示・有効化する
+	menu_container.show()
+	menu_container.visible = true # 明示的にvisibleも設定
+	start_button.show()
+	start_button.disabled = false
+
+	# デバッグログ：UIの表示状態
+	print("StartScreen UI表示: MenuContainer.visible = %s, StartButton.visible = %s, StartButton.disabled = %s" % [menu_container.visible, start_button.visible, start_button.disabled])
+
 	setup_buttons()
-	print("[StartScreen] Menu and start button forced visible/enabled in _ready.")
 	version_label.text = GAME_VERSION
 	# キャラ立ち絵の透過処理
 	$CharacterContainer/MizukiSprite.modulate.a = 1.0
@@ -86,7 +89,14 @@ func check_save_data():
 
 # ボタンのシグナル処理
 func _on_start_button_pressed() -> void:
-	print("[StartScreen] Start button pressed. Beginning game start sequence.")
+	# デバッグログ：ボタン押下
+	print("StartScreen ボタン押下: _on_start_button_pressed 実行")
+
+	# 2. ボタンが押されたらUIを非表示にする
+	menu_container.hide()
+	start_button.hide()
+	start_button.disabled = true # ボタンを無効化
+
 	var tree := get_tree()
 	var root := tree.get_root()
 	var gm := GameManagerClass.instance
@@ -111,10 +121,7 @@ func _on_start_button_pressed() -> void:
 		return
 
 	print("[StartScreen] Hiding menu and start button")
-	$MenuContainer.hide()
-	if start_button:
-		start_button.hide()
-		start_button.disabled = true
+	# $MenuContainer.hide() と start_button.hide() は既に上で実行済み
 
 	await tree.process_frame
 	print("[StartScreen] Changing scene to Main.tscn now.")
@@ -143,3 +150,4 @@ func _input(event):
 	elif event.is_action_pressed("ui_cancel"):
 		# ESCキーでゲーム終了
 		get_tree().quit()
+
