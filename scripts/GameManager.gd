@@ -134,7 +134,11 @@ func _ensure_bgm_player() -> void:
 		if parent != null:
 			parent.remove_child(bgm_player)
 		add_child(bgm_player)
-	bgm_player.bus = _determine_bgm_bus()
+	var bus_name := "BGM"
+	if AudioServer.get_bus_index(bus_name) == -1:
+		bus_name = "Master"
+	bgm_player.bus = bus_name
+
 
 func play_bgm(stream: AudioStream, volume_db: float = 0.0, _loop: bool = true) -> void:
 	if stream == null:
@@ -143,18 +147,27 @@ func play_bgm(stream: AudioStream, volume_db: float = 0.0, _loop: bool = true) -
 
 	var playable := stream.duplicate() if stream.has_method("duplicate") else stream
 	if playable is AudioStreamWAV:
-			playable.loop_mode = AudioStreamWAV.LOOP_FORWARD if _loop else AudioStreamWAV.LOOP_DISABLED
+		playable.loop_mode = AudioStreamWAV.LOOP_FORWARD if _loop else AudioStreamWAV.LOOP_DISABLED
 	elif playable.has_method("set_loop"):
 		playable.set_loop(_loop)
 
 	_ensure_bgm_player()
+	if bgm_player == null:
+		printerr("[GameManager] Unable to play BGM because bgm_player is missing")
+		return
+
 	bgm_player.stream = playable
 	bgm_offset_db = volume_db
 	bgm_player.volume_db = linear_to_db(settings.bgm_volume) + bgm_offset_db
 	bgm_player.play()
-	print("[GameManager] Playing BGM stream")
+
+	var bus_name := bgm_player.bus
+	var stream_name := stream.resource_path if stream.resource_path != "" else str(stream)
+	print("[GameManager] Playing BGM (bus=%s db=%f): %s" % [bus_name, bgm_player.volume_db, stream_name])
+
 
 func play_bgm_from_path(path: String, volume: float = 1.0, loop: bool = true) -> void:
+	print("[GameManager] play_bgm_from_path(path=%s) called" % path)
 	if path.is_empty():
 		printerr("[GameManager] play_bgm_from_path called with empty path")
 		return
@@ -164,8 +177,10 @@ func play_bgm_from_path(path: String, volume: float = 1.0, loop: bool = true) ->
 		printerr("[GameManager] Failed to load BGM: %s" % path)
 		return
 
+	print("[GameManager] Loaded stream OK: %s" % path)
 	var clamped_volume: float = clamp(volume, 0.0, 1.0)
 	play_bgm(stream, linear_to_db(clamped_volume), loop)
+
 
 func stop_bgm() -> void:
 	if bgm_player == null:
@@ -179,11 +194,6 @@ func set_bgm_volume(volume: float) -> void:
 	if bgm_player.stream:
 		bgm_player.volume_db = linear_to_db(settings.bgm_volume) + bgm_offset_db
 	print("BGM volume set to: ", volume)
-
-func _determine_bgm_bus() -> String:
-	var index := AudioServer.get_bus_index("BGM")
-	return "BGM" if index != -1 else "Master"
-
 
 
 # セーブデータのパス

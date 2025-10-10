@@ -70,18 +70,22 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 func start_dialog(dialog_data: Array) -> void:
+	print("[DialogSystem] start_dialog called with dialog_data:", dialog_data)
 	current_dialog = dialog_data
 	current_index = 0
 	show()
+	dialog_box.show()
 	_set_game_state(GameManager.GameState.DIALOG)
 	display_current_dialog()
 
 func display_current_dialog() -> void:
 	if current_index >= current_dialog.size():
+		print("[DialogSystem] display_current_dialog: No more dialog entries, ending dialog.")
 		end_dialog()
 		return
 
 	var dialog_entry: Dictionary = current_dialog[current_index]
+	print("[DialogSystem] display_current_dialog: dialog_entry:", dialog_entry)
 	var speaker: String = dialog_entry.get("speaker", DEFAULT_SPEAKER)
 	var text: String = dialog_entry.get("text", "")
 

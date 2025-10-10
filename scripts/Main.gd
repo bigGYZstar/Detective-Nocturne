@@ -11,6 +11,21 @@ extends Control
 var current_dialog_data: Array = []
 
 func _ready():
+	print("[Main] _ready() called. GameManager.instance:", GameManager.instance)
+	if GameManager.instance:
+		print("[Main] GameManager.current_state:", GameManager.instance.current_state)
+	if GameManager.instance and GameManager.instance.current_state == GameManager.GameState.PLAYING:
+		print("[Main] Game is in PLAYING state. Hiding menu and button.")
+		menu_layer.hide()
+		if start_button:
+			start_button.hide()
+			start_button.disabled = true
+	else:
+		menu_layer.show()
+		if start_button:
+			start_button.show()
+			start_button.disabled = false
+
 	# GameManagerのインスタンスを初期化
 	if GameManager.instance == null:
 		var game_manager_node = GameManager.new()
@@ -32,12 +47,18 @@ func _on_start_button_pressed():
 	menu_layer.hide()
 	if start_button:
 		start_button.hide()
+		start_button.disabled = true
 	start_game()
 
 func start_game():
-	# BGMを再生
-	GameManager.instance.play_bgm("res://assets/audio/bgm/opening.mp3") # 仮のBGMパス
-	# 序章シナリオを開始
+	# BGMを再生（ロードしてAudioStreamを渡すか、play_bgm_from_pathを使う）
+	print("[Main] start_game() called. GameManager.instance:", GameManager.instance)
+	if GameManager.instance:
+		print("[Main] Calling play_bgm_from_path for detective_office_daily.wav")
+		GameManager.instance.play_bgm_from_path("res://assets/audio/bgm/detective_office_daily.wav", 1.0, true)
+	else:
+		printerr("[Main] GameManager.instance is null in start_game!")
+	print("[Main] Starting scenario: prologue")
 	scenario_manager.start_scenario("prologue")
 
 func _on_scenario_command(command: Dictionary):
@@ -62,10 +83,10 @@ func _on_scenario_command(command: Dictionary):
 
 		"show_character":
 			# キャラクターを表示
-			var position = get_character_position(command.position)
+			var char_position = get_character_position(command.position)
 			character_manager.show_character(
-				command.character, 
-				position, 
+				command.character,
+				char_position,
 				command.get("expression", "normal")
 			)
 			scenario_manager.advance_scenario()

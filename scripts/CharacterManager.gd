@@ -28,21 +28,21 @@ func show_character(character_name: String, position: Position, expression: Stri
 	if character_name in active_characters:
 		hide_character(character_name)
 
-	var sprite := Sprite2D.new()
-	sprite.name = character_name
+	var char_sprite := Sprite2D.new()
+	char_sprite.name = character_name
 
 	var texture := _load_character_texture(character_name, expression)
-	sprite.texture = texture
-	sprite.position = position_map[position]
-	sprite.scale = Vector2(0.8, 0.8)
+	char_sprite.texture = texture
+	char_sprite.position = position_map[position]
+	char_sprite.scale = Vector2(0.8, 0.8)
 
-	add_child(sprite)
-	active_characters[character_name] = sprite
+	add_child(char_sprite)
+	active_characters[character_name] = char_sprite
 
-	sprite.modulate.a = 1.0
-	sprite.self_modulate.a = 1.0
+	char_sprite.modulate.a = 1.0
+	char_sprite.self_modulate.a = 1.0
 	var tween := create_tween()
-	tween.tween_property(sprite, "modulate:a", 1.0, 0.5)
+	tween.tween_property(char_sprite, "modulate:a", 1.0, 0.5)
 	tween.tween_callback(func(): character_animation_finished.emit())
 	await get_tree().create_timer(0.5).timeout
 
@@ -61,22 +61,22 @@ func hide_character(character_name: String) -> void:
 
 func change_expression(character_name: String, expression: String) -> void:
 	if character_name in active_characters:
-		var sprite: Sprite2D = active_characters[character_name]
-		sprite.texture = _load_character_texture(character_name, expression)
+		var char_sprite: Sprite2D = active_characters[character_name]
+		char_sprite.texture = _load_character_texture(character_name, expression)
 
 func hide_all_characters() -> void:
-	for name in active_characters.keys():
-		hide_character(name)
+	for char_name in active_characters.keys():
+		hide_character(char_name)
 
 func _load_character_texture(character_name: String, expression: String) -> Texture2D:
-	var transparent_path := "res://assets/characters/%s_%s_transparent.png" % [character_name, expression]
-	var regular_path := "res://assets/characters/%s_%s.png" % [character_name, expression]
+	var char_transparent_path := "res://assets/characters/%s_%s_transparent.png" % [character_name, expression]
+	var char_regular_path := "res://assets/characters/%s_%s.png" % [character_name, expression]
 
 	var path := ""
-	if ResourceLoader.exists(transparent_path):
-		path = transparent_path
-	elif ResourceLoader.exists(regular_path):
-		path = regular_path
+	if ResourceLoader.exists(char_transparent_path):
+		path = char_transparent_path
+	elif ResourceLoader.exists(char_regular_path):
+		path = char_regular_path
 
 	if path.is_empty():
 		printerr("[CharacterManager] Image file not found for %s:%s" % [character_name, expression])
@@ -226,16 +226,16 @@ func _collect_background_palette(image: Image, tolerance: float = 0.08, max_colo
 	sample_points.append(Vector2i(0, int(height / 2)))
 	sample_points.append(Vector2i(width - 1, int(height / 2)))
 	for sample_point in sample_points:
-		var color := image.get_pixelv(sample_point)
-		if color.a < 0.99:
+		var sample_color := image.get_pixelv(sample_point)
+		if sample_color.a < 0.99:
 			continue
 		var add_color := true
 		for existing in palette:
-			if _is_color_similar(color, existing, tolerance):
+			if _is_color_similar(sample_color, existing, tolerance):
 				add_color = false
 				break
 		if add_color:
-			palette.append(color)
+			palette.append(sample_color)
 			if palette.size() >= max_colors:
 				break
 	return palette

@@ -15,7 +15,21 @@ const GameManagerClass := preload("res://scripts/GameManager.gd")
 @onready var gallery_button = $MenuContainer/GalleryButton
 
 func _ready() -> void:
+	print("[StartScreen] _ready() called - ensuring start UI visible")
+	self.show()
+	self.visible = true
+	print("[StartScreen] Root node visibility: %s" % str(self.visible))
+	$MenuContainer.show()
+	$MenuContainer.visible = true
+	print("[StartScreen] MenuContainer visibility: %s" % str($MenuContainer.visible))
+	if start_button:
+		start_button.show()
+		start_button.disabled = false
+		print("[StartScreen] Start button shown and enabled (visible=%s disabled=%s)" % [str(start_button.visible), str(start_button.disabled)])
+	else:
+		printerr("[StartScreen] Start button reference missing")
 	setup_buttons()
+	print("[StartScreen] Menu and start button forced visible/enabled in _ready.")
 	version_label.text = GAME_VERSION
 	# キャラ立ち絵の透過処理
 	$CharacterContainer/MizukiSprite.modulate.a = 1.0
@@ -71,21 +85,40 @@ func check_save_data():
 		continue_button.modulate = Color(0.6, 0.6, 0.6, 1.0)
 
 # ボタンのシグナル処理
-func _on_start_button_pressed():
-	print("新しいゲームを開始します")
-	# GameManagerの状態をリセットして新しいゲームを開始
-	if GameManagerClass.instance:
-		GameManagerClass.instance.stop_bgm() # BGMを停止
-		GameManagerClass.instance.current_chapter = 0
-		GameManagerClass.instance.current_scene = 0
-		GameManagerClass.instance.character_affection = {"mizuki": 0, "saori": 0, "ruri": 0}
-		GameManagerClass.instance.game_flags = {}
-		GameManagerClass.instance.change_state(GameManagerClass.GameState.PLAYING)
+func _on_start_button_pressed() -> void:
+	print("[StartScreen] Start button pressed. Beginning game start sequence.")
+	var tree := get_tree()
+	var root := tree.get_root()
+	var gm := GameManagerClass.instance
 
-	# ボタン群を非表示にする
-	$MenuContainer.visible = false
-	# メインゲームシーンに移行
-	get_tree().change_scene_to_file("res://scenes/Main.tscn")
+	if gm == null:
+		var gm_node := GameManagerClass.new()
+		root.add_child(gm_node)
+		print("[StartScreen] GameManager created and awaiting _ready()")
+		await tree.process_frame
+		gm = GameManagerClass.instance
+
+	if gm:
+		print("[StartScreen] GameManager initialized - switching to PLAYING")
+		gm.stop_bgm()
+		gm.current_chapter = 0
+		gm.current_scene = 0
+		gm.character_affection = {"mizuki": 0, "saori": 0, "ruri": 0}
+		gm.game_flags = {}
+		gm.change_state(GameManagerClass.GameState.PLAYING)
+	else:
+		printerr("[StartScreen] Failed to initialize GameManager; aborting scene change.")
+		return
+
+	print("[StartScreen] Hiding menu and start button")
+	$MenuContainer.hide()
+	if start_button:
+		start_button.hide()
+		start_button.disabled = true
+
+	await tree.process_frame
+	print("[StartScreen] Changing scene to Main.tscn now.")
+	tree.change_scene_to_file("res://scenes/Main.tscn")
 
 func _on_continue_button_pressed():
 	print("セーブデータからゲームを継続します")
