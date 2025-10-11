@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bxqvxr8qkw2ej"]
+[gd_scene load_steps=8 format=3 uid="uid://bxqvxr8qkw2ej"]
 
 [ext_resource type="Script" path="res://scripts/GameManager.gd" id="1_0k8vj"]
 [ext_resource type="Script" path="res://scripts/DialogSystem.gd" id="2_3h4kl"]
 [ext_resource type="Script" path="res://scripts/Main.gd" id="3_main"]
 [ext_resource type="Script" path="res://scripts/CharacterManager.gd" id="4_char"]
 [ext_resource type="Script" path="res://scripts/ScenarioManager.gd" id="5_scenario"]
+[ext_resource type="Script" path="res://scripts/ChapterTitle.gd" id="6_chapter"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
 bg_color = Color(0, 0, 0, 0.8)
@@ -41,6 +42,62 @@ script = ExtResource("4_char")
 script = ExtResource("5_scenario")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="ChapterTitle" type="Control" parent="UILayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_chapter")
+
+[node name="Background" type="ColorRect" parent="UILayer/ChapterTitle"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="CenterContainer" type="CenterContainer" parent="UILayer/ChapterTitle"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleContainer" type="VBoxContainer" parent="UILayer/ChapterTitle/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="JapaneseTitle" type="Label" parent="UILayer/ChapterTitle/CenterContainer/TitleContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_font_sizes/font_size = 80
+text = "持たざる者"
+horizontal_alignment = 1
+
+[node name="Separator" type="Panel" parent="UILayer/ChapterTitle/CenterContainer/TitleContainer"]
+custom_minimum_size = Vector2(600, 3)
+layout_mode = 2
+
+[node name="EnglishTitle" type="Label" parent="UILayer/ChapterTitle/CenterContainer/TitleContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 32
+text = "CHAPTER 1  THE MEAGER"
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UILayer/ChapterTitle"]
 
 [node name="DialogSystem" type="Control" parent="UILayer"]
 layout_mode = 3
@@ -140,3 +197,4 @@ theme_override_font_sizes/font_size = 24
 text = "ゲーム開始"
 
 [connection signal="pressed" from="MenuLayer/StartButton" to="." method="_on_start_button_pressed"]
+

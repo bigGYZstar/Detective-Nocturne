@@ -6,6 +6,7 @@ extends Control
 @onready var scenario_manager: ScenarioManager = $ScenarioManager
 @onready var start_button: Button = $MenuLayer/StartButton
 @onready var menu_layer: CanvasLayer = $MenuLayer
+@onready var chapter_title: ChapterTitle = $UILayer/ChapterTitle
 
 # 現在のダイアログデータ
 var current_dialog_data: Array = []
@@ -34,9 +35,13 @@ func _ready():
 	# シグナル接続
 	dialog_system.dialog_finished.connect(_on_dialog_finished)
 	scenario_manager.scenario_command_executed.connect(_on_scenario_command)
+	if chapter_title:
+		chapter_title.title_finished.connect(_on_chapter_title_finished)
 	
 	# 初期状態の設定
 	dialog_system.hide()
+	if chapter_title:
+		chapter_title.hide()
 
 	# GameManagerの状態がPLAYINGの場合のみシナリオを開始
 	if GameManager.instance and GameManager.instance.current_state == GameManager.GameState.PLAYING:
@@ -63,6 +68,16 @@ func start_game():
 
 func _on_scenario_command(command: Dictionary):
 	match command.type:
+		"show_chapter_title":
+			# 章タイトルを表示
+			var jp_text: String = command.get("japanese_title", "")
+			var en_text: String = command.get("english_title", "")
+			var duration: float = command.get("duration", 3.0)
+			if chapter_title:
+				chapter_title.show_chapter_title(jp_text, en_text, duration)
+			else:
+				scenario_manager.advance_scenario()
+		
 		"dialog":
 			# ダイアログを表示
 			var dialog_data = [{
@@ -146,6 +161,11 @@ func _on_dialog_finished():
 	else:
 		print("Scenario finished. Quitting game.")
 		get_tree().quit()
+
+func _on_chapter_title_finished():
+	# 章タイトル表示終了後、次のシナリオコマンドを実行
+	if scenario_manager.has_next_command():
+		scenario_manager.advance_scenario()
 
 func _input(event):
 	# ESCキーでメニュー表示切り替え

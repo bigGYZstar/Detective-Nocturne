@@ -3,6 +3,13 @@
   "id": "chapter_01",
   "lines": [
     {
+      "id": "C01-0000",
+      "type": "show_chapter_title",
+      "japanese_title": "持たざる者",
+      "english_title": "CHAPTER 1  THE MEAGER",
+      "duration": 3.0
+    },
+    {
       "id": "C01-0001",
       "type": "narration",
       "text": {

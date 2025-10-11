@@ -3,6 +3,13 @@
   "id": "chapter_02",
   "lines": [
     {
+      "id": "C02-0000",
+      "type": "show_chapter_title",
+      "japanese_title": "影の集会",
+      "english_title": "CHAPTER 2  THE SHADOW ASSEMBLY",
+      "duration": 3.0
+    },
+    {
       "id": "C02-0001",
       "type": "change_background",
       "background": "mysterious_assembly_hall"
