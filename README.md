@@ -59,6 +59,7 @@ chmod +x Godot_v4.5-stable_linux.x86_64
 - **データ駆動シナリオシステム**: シナリオデータがJSONファイルに一元化され、Godotエンジンから独立して管理されます。
 - **アセット管理**: `manifest.json`を介したアセット参照により、パス直書きを排除。
 - **基本UI**: ダイアログシステム、メニューシステム
+- **章タイトル表示**: 各章の始まりに日本語タイトルと英語サブタイトルを表示するシステム。フェードイン/アウトアニメーション、スキップ機能付き。
 - **キャラクター表示**: 主要3キャラクターの立ち絵（通常、驚き、悲しみなどの表情差分を含む）
 - **シナリオシステム**: 序章および第二章のデータ駆動型シナリオ実装
 - **ゲーム管理**: 状態管理、フラグ管理、好感度システム
@@ -88,8 +89,28 @@ chmod +x Godot_v4.5-stable_linux.x86_64
 
 - **章データ**: `data/scenarios/<chapter>.json`
   - 各章のシナリオコマンドをJSON形式で格納。各コマンドは一意の`id`を持つ。
+  - 章タイトル表示コマンド例:
+    ```json
+    {
+      "id": "C01-0000",
+      "type": "show_chapter_title",
+      "japanese_title": "持たざる者",
+      "english_title": "CHAPTER 1  THE MEAGER",
+      "duration": 3.0
+    }
+    ```
 - **アセット辞書**: `data/assets/manifest.json`
   - キャラクター画像、背景画像、UI要素などのアセットパスをキー参照で一元管理。コードからのパス直書きを排除。
+
+### 章タイトル表示機能
+
+各章の始まりに、リファレンスデザインに基づいた章タイトル画面が表示されます。詳細は[章タイトル表示機能の実装ドキュメント](docs/chapter_title_implementation.md)を参照してください。
+
+**主な特徴:**
+- 大きな日本語タイトルと英語サブタイトルの表示
+- 半透明の背景でゲーム画面が透けて見えるデザイン
+- フェードイン/アウトアニメーション（各1秒）
+- Enterキーでスキップ可能
 
 ## 🏗️ プロジェクト構造
 
@@ -98,6 +119,7 @@ Detective-Nocturne/
 ├── project.godot              # Godotプロジェクト設定
 ├── scenes/                    # シーンファイル
 │   ├── Main.tscn             # メインシーン
+│   ├── ChapterTitle.tscn     # 章タイトル表示シーン
 │   ├── ui/                   # UIシーン
 │   ├── characters/           # キャラクターシーン
 │   └── backgrounds/          # 背景シーン
@@ -106,6 +128,7 @@ Detective-Nocturne/
 │   ├── DialogSystem.gd       # ダイアログシステム
 │   ├── CharacterManager.gd   # キャラクター管理
 │   ├── ScenarioManager.gd    # シナリオ管理 (データ駆動型)
+│   ├── ChapterTitle.gd       # 章タイトル表示
 │   ├── SaveSystem.gd         # セーブ・ロード
 │   └── SettingsSystem.gd     # 設定システム
 ├── assets/                    # アセットファイル
@@ -118,11 +141,13 @@ Detective-Nocturne/
 │   │   ├── se/              # 効果音
 │   │   └── voice/           # ボイス
 │   └── fonts/               # フォントファイル
-└── data/                     # データファイル
-    ├── scenarios/            # シナリオデータ (.json)
-    ├── assets/               # アセットマニフェスト
-    │   └── manifest.json     # アセットパス定義
-    └── saves/               # セーブデータ
+├── data/                     # データファイル
+│   ├── scenarios/            # シナリオデータ (.json)
+│   ├── assets/               # アセットマニフェスト
+│   │   └── manifest.json     # アセットパス定義
+│   └── saves/               # セーブデータ
+└── docs/                     # ドキュメント
+    └── chapter_title_implementation.md  # 章タイトル表示機能の実装ドキュメント
 ```
 
 ## 🎮 操作方法
